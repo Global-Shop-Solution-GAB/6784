@@ -1,0 +1,1600 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.FormWF..Create(BaseForm)
+Gui.FormWF..Caption("Custom Workflow Queue [6784]")
+Gui.FormWF..Size(1411,777)
+Gui.FormWF..MinX(0)
+Gui.FormWF..MinY(0)
+Gui.FormWF..Position(0,0)
+Gui.FormWF..AlwaysOnTop(False)
+Gui.FormWF..FontName("Tahoma")
+Gui.FormWF..FontSize(8.25)
+Gui.FormWF..ControlBox(True)
+Gui.FormWF..MaxButton(True)
+Gui.FormWF..MinButton(True)
+Gui.FormWF..MousePointer(0)
+Gui.FormWF..Moveable(True)
+Gui.FormWF..Sizeable(True)
+Gui.FormWF..ShowInTaskBar(True)
+Gui.FormWF..TitleBar(True)
+Gui.FormWF..Event(UnLoad,FormWF_UnLoad1)
+Gui.FormWF.lbl1.Create(Label,"User",True,22,13,0,46,17,True,0,"Tahoma",8.25,,0,0)
+Gui.FormWF.lbl1.BorderStyle(0)
+Gui.FormWF.cmdRefresh.Create(Button)
+Gui.FormWF.cmdRefresh.Enabled(True)
+Gui.FormWF.cmdRefresh.Visible(True)
+Gui.FormWF.cmdRefresh.Zorder(0)
+Gui.FormWF.cmdRefresh.Size(59,26)
+Gui.FormWF.cmdRefresh.Position(377,27)
+Gui.FormWF.cmdRefresh.Caption("")
+Gui.FormWF.cmdRefresh.FontName("Tahoma")
+Gui.FormWF.cmdRefresh.FontSize(8.25)
+Gui.FormWF.cmdRefresh.SvgPicture("icon_refresh_color")
+Gui.FormWF.cmdRefresh.ImageAlign(5)
+Gui.FormWF.cmdRefresh.Event(Click,cmdRefresh_Click)
+Gui.FormWF.txt_User.Create(TextBox,"",True,150,20,0,38,33,True,0,"Tahoma",8.25,,1)
+Gui.FormWF.txt_User.Locked(True)
+Gui.FormWF.picGSSLogo.Create(PictureBox)
+Gui.FormWF.picGSSLogo.Enabled(True)
+Gui.FormWF.picGSSLogo.Visible(True)
+Gui.FormWF.picGSSLogo.Zorder(0)
+Gui.FormWF.picGSSLogo.Size(375,75)
+Gui.FormWF.picGSSLogo.Position(662,17)
+Gui.FormWF.picGSSLogo.Anchor(15)
+Gui.FormWF.gsgcWF.Create(GsGridControl)
+Gui.FormWF.gsgcWF.Enabled(True)
+Gui.FormWF.gsgcWF.Visible(True)
+Gui.FormWF.gsgcWF.Zorder(0)
+Gui.FormWF.gsgcWF.Size(1379,627)
+Gui.FormWF.gsgcWF.Position(17,106)
+Gui.FormWF.gsgcWF.Anchor(15)
+Gui.FormWF.gsgcWF.Event(CellValueChanged,gsgcWF_CellValueChanged)
+Gui.FormWF.ddl_View.Create(DropDownList)
+Gui.FormWF.ddl_View.Enabled(True)
+Gui.FormWF.ddl_View.Visible(True)
+Gui.FormWF.ddl_View.Zorder(0)
+Gui.FormWF.ddl_View.Size(158,20)
+Gui.FormWF.ddl_View.Position(37,73)
+Gui.FormWF.ddl_View.FontName("Tahoma")
+Gui.FormWF.ddl_View.FontSize(8.25)
+Gui.FormWF.ddl_View.Event(DropDownClosed,ddl_View_DropDownClosed)
+Gui.FormWF.cmdCompleteStep.Create(Button)
+Gui.FormWF.cmdCompleteStep.Enabled(True)
+Gui.FormWF.cmdCompleteStep.Visible(True)
+Gui.FormWF.cmdCompleteStep.Zorder(0)
+Gui.FormWF.cmdCompleteStep.Size(100,36)
+Gui.FormWF.cmdCompleteStep.Position(1125,16)
+Gui.FormWF.cmdCompleteStep.Caption("Complete WF Step")
+Gui.FormWF.cmdCompleteStep.FontName("Tahoma")
+Gui.FormWF.cmdCompleteStep.FontSize(8.25)
+Gui.FormWF.cmdCompleteStep.Event(Click,cmdCompleteStep_Click)
+Gui.FormWF.cmdCompleteStep.Anchor(9)
+Gui.FormWF.chkLastDays.Create(CheckBox)
+Gui.FormWF.chkLastDays.Enabled(True)
+Gui.FormWF.chkLastDays.Visible(True)
+Gui.FormWF.chkLastDays.Zorder(0)
+Gui.FormWF.chkLastDays.Size(92,28)
+Gui.FormWF.chkLastDays.Position(246,33)
+Gui.FormWF.chkLastDays.Caption("Last 30 Days")
+Gui.FormWF.chkLastDays.FontName("Tahoma")
+Gui.FormWF.chkLastDays.FontSize(8.25)
+Gui.FormWF.cmdWFAll.Create(Button)
+Gui.FormWF.cmdWFAll.Enabled(True)
+Gui.FormWF.cmdWFAll.Visible(True)
+Gui.FormWF.cmdWFAll.Zorder(0)
+Gui.FormWF.cmdWFAll.Size(66,30)
+Gui.FormWF.cmdWFAll.Position(1243,19)
+Gui.FormWF.cmdWFAll.Caption("")
+Gui.FormWF.cmdWFAll.FontName("Tahoma")
+Gui.FormWF.cmdWFAll.FontSize(8.25)
+Gui.FormWF.cmdWFAll.Event(Click,cmdWFAll_Click)
+Gui.FormWF.cmdWFAll.SvgPicture("icon_show_color")
+Gui.FormWF.cmdWFAll.ImageAlign(8)
+Gui.FormWF.cmdWFAll.Anchor(9)
+Gui.FormWF.cmdDeleteWF.Create(Button)
+Gui.FormWF.cmdDeleteWF.Enabled(True)
+Gui.FormWF.cmdDeleteWF.Visible(True)
+Gui.FormWF.cmdDeleteWF.Zorder(0)
+Gui.FormWF.cmdDeleteWF.Size(66,30)
+Gui.FormWF.cmdDeleteWF.Position(1327,19)
+Gui.FormWF.cmdDeleteWF.Caption("Restart")
+Gui.FormWF.cmdDeleteWF.FontName("Tahoma")
+Gui.FormWF.cmdDeleteWF.FontSize(8.25)
+Gui.FormWF.cmdDeleteWF.Event(Click,cmdDeleteWF_Click)
+Gui.FormWF.cmdDeleteWF.Anchor(9)
+Gui.FormWF.txtLabelHighlighting.Create(TextBox,"Dependent on previous task, not ready to work on.",True,259,28,0,1134,67,True,0,"Tahoma",8.25,13353215,1)
+Gui.FormWF.txtLabelHighlighting.Locked(True)
+Gui.FormWF.txtLabelHighlighting.Anchor(9)
+Gui.FormWF_Step..Create(BaseForm)
+Gui.FormWF_Step..Caption("WF Step")
+Gui.FormWF_Step..Size(251,205)
+Gui.FormWF_Step..MinX(0)
+Gui.FormWF_Step..MinY(0)
+Gui.FormWF_Step..Position(0,0)
+Gui.FormWF_Step..AlwaysOnTop(False)
+Gui.FormWF_Step..FontName("Tahoma")
+Gui.FormWF_Step..FontSize(8.25)
+Gui.FormWF_Step..ControlBox(True)
+Gui.FormWF_Step..MaxButton(True)
+Gui.FormWF_Step..MinButton(True)
+Gui.FormWF_Step..MousePointer(0)
+Gui.FormWF_Step..Moveable(True)
+Gui.FormWF_Step..Sizeable(True)
+Gui.FormWF_Step..ShowInTaskBar(True)
+Gui.FormWF_Step..TitleBar(True)
+Gui.FormWF_Step..Event(UnLoad,FormWF_Step_UnLoad)
+Gui.FormWF_Step.lbl1.Create(Label,"Percentage Completed",True,109,13,0,19,15,True,0,"Tahoma",8.25,,0,0)
+Gui.FormWF_Step.lbl1.BorderStyle(0)
+Gui.FormWF_Step.chkCompleteLine.Create(CheckBox)
+Gui.FormWF_Step.chkCompleteLine.Enabled(True)
+Gui.FormWF_Step.chkCompleteLine.Visible(True)
+Gui.FormWF_Step.chkCompleteLine.Zorder(0)
+Gui.FormWF_Step.chkCompleteLine.Size(95,28)
+Gui.FormWF_Step.chkCompleteLine.Position(19,78)
+Gui.FormWF_Step.chkCompleteLine.Caption("Complete Line")
+Gui.FormWF_Step.chkCompleteLine.FontName("Tahoma")
+Gui.FormWF_Step.chkCompleteLine.FontSize(8.25)
+Gui.FormWF_Step.chkSignOff.Create(CheckBox)
+Gui.FormWF_Step.chkSignOff.Enabled(True)
+Gui.FormWF_Step.chkSignOff.Visible(True)
+Gui.FormWF_Step.chkSignOff.Zorder(0)
+Gui.FormWF_Step.chkSignOff.Size(75,28)
+Gui.FormWF_Step.chkSignOff.Position(154,78)
+Gui.FormWF_Step.chkSignOff.Caption("Sign Off")
+Gui.FormWF_Step.chkSignOff.FontName("Tahoma")
+Gui.FormWF_Step.chkSignOff.FontSize(8.25)
+Gui.FormWF_Step.cmdSave.Create(Button)
+Gui.FormWF_Step.cmdSave.Enabled(True)
+Gui.FormWF_Step.cmdSave.Visible(True)
+Gui.FormWF_Step.cmdSave.Zorder(0)
+Gui.FormWF_Step.cmdSave.Size(75,23)
+Gui.FormWF_Step.cmdSave.Position(21,130)
+Gui.FormWF_Step.cmdSave.Caption("Save")
+Gui.FormWF_Step.cmdSave.FontName("Tahoma")
+Gui.FormWF_Step.cmdSave.FontSize(8.25)
+Gui.FormWF_Step.cmdSave.SvgPicture("icon_save_all_color")
+Gui.FormWF_Step.cmdSave.Event(Click,cmdSave_Click)
+Gui.FormWF_Step.txt_Percentage.Create(TextBox,"",True,173,20,0,19,36,True,0,"Tahoma",8.25,,1)
+Gui.FormWFAll..Create(BaseForm)
+Gui.FormWFAll..Caption("View All WFs and Lines within range")
+Gui.FormWFAll..Size(1304,784)
+Gui.FormWFAll..MinX(0)
+Gui.FormWFAll..MinY(0)
+Gui.FormWFAll..Position(0,0)
+Gui.FormWFAll..AlwaysOnTop(False)
+Gui.FormWFAll..FontName("Tahoma")
+Gui.FormWFAll..FontSize(8.25)
+Gui.FormWFAll..ControlBox(True)
+Gui.FormWFAll..MaxButton(True)
+Gui.FormWFAll..MinButton(True)
+Gui.FormWFAll..MousePointer(0)
+Gui.FormWFAll..Moveable(True)
+Gui.FormWFAll..Sizeable(True)
+Gui.FormWFAll..ShowInTaskBar(True)
+Gui.FormWFAll..TitleBar(True)
+Gui.FormWFAll..Event(UnLoad,FormWFAll_UnLoad)
+Gui.FormWFAll.gsgcWFAll.Create(GsGridControl)
+Gui.FormWFAll.gsgcWFAll.Enabled(True)
+Gui.FormWFAll.gsgcWFAll.Visible(True)
+Gui.FormWFAll.gsgcWFAll.Zorder(0)
+Gui.FormWFAll.gsgcWFAll.Size(1277,670)
+Gui.FormWFAll.gsgcWFAll.Position(13,70)
+Gui.FormWFAll.gsgcWFAll.Anchor(15)
+Gui.FormWFAll.dtpStartDate.Create(DatePicker)
+Gui.FormWFAll.dtpStartDate.Enabled(True)
+Gui.FormWFAll.dtpStartDate.Visible(True)
+Gui.FormWFAll.dtpStartDate.Zorder(0)
+Gui.FormWFAll.dtpStartDate.Size(100,20)
+Gui.FormWFAll.dtpStartDate.Position(102,12)
+Gui.FormWFAll.dtpStartDate.CheckBox(False)
+Gui.FormWFAll.dtpStartDate.FontName("Tahoma")
+Gui.FormWFAll.dtpStartDate.FontSize(8.25)
+Gui.FormWFAll.dtpEndDate.Create(DatePicker)
+Gui.FormWFAll.dtpEndDate.Enabled(True)
+Gui.FormWFAll.dtpEndDate.Visible(True)
+Gui.FormWFAll.dtpEndDate.Zorder(0)
+Gui.FormWFAll.dtpEndDate.Size(100,20)
+Gui.FormWFAll.dtpEndDate.Position(102,40)
+Gui.FormWFAll.dtpEndDate.CheckBox(False)
+Gui.FormWFAll.dtpEndDate.FontName("Tahoma")
+Gui.FormWFAll.dtpEndDate.FontSize(8.25)
+Gui.FormWFAll.cmd_RefreshAll.Create(Button)
+Gui.FormWFAll.cmd_RefreshAll.Enabled(True)
+Gui.FormWFAll.cmd_RefreshAll.Visible(True)
+Gui.FormWFAll.cmd_RefreshAll.Zorder(0)
+Gui.FormWFAll.cmd_RefreshAll.Size(59,26)
+Gui.FormWFAll.cmd_RefreshAll.Position(237,13)
+Gui.FormWFAll.cmd_RefreshAll.Caption("")
+Gui.FormWFAll.cmd_RefreshAll.FontName("Tahoma")
+Gui.FormWFAll.cmd_RefreshAll.FontSize(8.25)
+Gui.FormWFAll.cmd_RefreshAll.SvgPicture("icon_refresh_color")
+Gui.FormWFAll.cmd_RefreshAll.Event(Click,cmd_RefreshAll_Click)
+Gui.FormWFAll.cmd_RefreshAll.ImageAlign(8)
+Gui.FormWFAll.lbl1.Create(Label,"Start Date",True,50,13,0,42,16,True,0,"Tahoma",8.25,,0,0)
+Gui.FormWFAll.lbl1.BorderStyle(0)
+Gui.FormWFAll.lbl2.Create(Label,"End Date",True,44,13,0,48,44,True,0,"Tahoma",8.25,,0,0)
+Gui.FormWFAll.lbl2.BorderStyle(0)
+Gui.FormDeleteWF..Create(BaseForm)
+Gui.FormDeleteWF..Caption("WF Restart")
+Gui.FormDeleteWF..Size(409,343)
+Gui.FormDeleteWF..MinX(0)
+Gui.FormDeleteWF..MinY(0)
+Gui.FormDeleteWF..Position(0,0)
+Gui.FormDeleteWF..AlwaysOnTop(False)
+Gui.FormDeleteWF..FontName("Tahoma")
+Gui.FormDeleteWF..FontSize(8.25)
+Gui.FormDeleteWF..ControlBox(True)
+Gui.FormDeleteWF..MaxButton(True)
+Gui.FormDeleteWF..MinButton(True)
+Gui.FormDeleteWF..MousePointer(0)
+Gui.FormDeleteWF..Moveable(True)
+Gui.FormDeleteWF..Sizeable(True)
+Gui.FormDeleteWF..ShowInTaskBar(True)
+Gui.FormDeleteWF..TitleBar(True)
+Gui.FormDeleteWF..Event(UnLoad,FormDeleteWF_UnLoad)
+Gui.FormDeleteWF.lbl1.Create(Label,"Selected WF ID",True,74,13,0,20,16,True,0,"Tahoma",8.25,,0,0)
+Gui.FormDeleteWF.lbl1.BorderStyle(0)
+Gui.FormDeleteWF.txtDeleteWF_ID.Create(TextBox,"",True,58,20,0,103,12,False,0,"Tahoma",8.25,,1)
+Gui.FormDeleteWF.cmdRestartWF.Create(Button)
+Gui.FormDeleteWF.cmdRestartWF.Enabled(True)
+Gui.FormDeleteWF.cmdRestartWF.Visible(True)
+Gui.FormDeleteWF.cmdRestartWF.Zorder(0)
+Gui.FormDeleteWF.cmdRestartWF.Size(75,23)
+Gui.FormDeleteWF.cmdRestartWF.Position(282,10)
+Gui.FormDeleteWF.cmdRestartWF.Caption("Restart")
+Gui.FormDeleteWF.cmdRestartWF.FontName("Tahoma")
+Gui.FormDeleteWF.cmdRestartWF.FontSize(8.25)
+Gui.FormDeleteWF.cmdRestartWF.Event(Click,cmdRestartWF_Click)
+Gui.FormDeleteWF.lbl2.Create(Label,"Reason for Restart",True,92,13,0,16,51,True,0,"Tahoma",8.25,,0,0)
+Gui.FormDeleteWF.lbl2.BorderStyle(0)
+Gui.FormDeleteWF.txtDeleteWF_Reason.Create(TextBoxR)
+Gui.FormDeleteWF.txtDeleteWF_Reason.Enabled(True)
+Gui.FormDeleteWF.txtDeleteWF_Reason.Visible(True)
+Gui.FormDeleteWF.txtDeleteWF_Reason.Zorder(0)
+Gui.FormDeleteWF.txtDeleteWF_Reason.Size(382,226)
+Gui.FormDeleteWF.txtDeleteWF_Reason.Position(13,68)
+Gui.FormDeleteWF.txtDeleteWF_Reason.FontName("Tahoma")
+Gui.FormDeleteWF.txtDeleteWF_Reason.FontSize(8.25)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+V.Global.bLoadData.Declare(Boolean)
+V.Global.sError.Declare(String)
+V.Global.iARC_ID.Declare(Long, "6784")
+V.Global.sARCID.Declare(String, "ARC 6784")
+
+Program.Sub.Preflight.End
+Program.Sub.Main.Start
+'Author: Arturo Almaguer
+'Date: 6/10/22
+'Customer: Northstar Metal Products, quote number 13509
+'Custom WF queue dashboard
+
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+
+F.Intrinsic.Control.Try
+	
+	V.Local.sGSSLogo.Declare(String)
+	V.Local.bIsInGroup.Declare(Boolean)
+	
+	'Displaying GSS Logo on dashboard
+	F.Intrinsic.String.Build("{0}\ART\GAB_GSS_Logo_Green_Dash.png", V.Caller.GlobalDir, V.Local.sGSSLogo)
+	gui.FormWF.picGSSLogo.Picture(V.Local.sGSSLogo)
+	
+	'Setting text in textbox and dropdown list
+	GUI.FormWF.txt_User.Text(V.Caller.User)
+	GUI.FormWF.ddl_View.AddItem("All")
+	GUI.FormWF.ddl_View.AddItem("Assigned")
+	GUI.FormWF.ddl_View.AddItem("Sign Off")
+	GUI.FormWF.ddl_View.Text("All")
+	
+	'Calling subs and showing form
+	F.Intrinsic.Control.CallSub(CheckTable)
+	F.Intrinsic.Control.CallSub(SetContextMenus)
+	F.Intrinsic.Control.CallSub(SetContextMenusAll)
+	F.Intrinsic.Control.CallSub(LoadData)
+	F.Intrinsic.Control.CallSub(CallDictionaries)
+	F.Intrinsic.Control.CallSub(LoadGrid)
+	F.Intrinsic.Control.CallSub(Deserialize)
+	
+	'Only users withing group will have the ability to restart a WF.
+	F.Global.Security.IsInGroup(V.Caller.User, "TESTWF", V.Caller.CompanyCode, V.Local.bIsInGroup)
+	F.Intrinsic.Control.If(V.Local.bIsInGroup,=,True)
+		GUI.FormWF.cmdDeleteWF.Enabled(True)
+	F.Intrinsic.Control.Else
+		GUI.FormWF.cmdDeleteWF.Enabled(False)
+	F.Intrinsic.Control.EndIf
+	
+	'Showing form
+	gui.FormWF..Show
+	gui.FormWF..WindowState(2)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+Program.Sub.LoadData.Start
+'Loading data 
+
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	V.Local.dPrevDate.Declare(Date)
+	V.Local.sUserInGroups.Declare(String)
+	V.Local.bAllFlag.Declare(Boolean)
+	
+	F.Intrinsic.Control.If(V.DataTable.dtWF.Exists)
+		F.Data.DataTable.Close("dtWF")
+	F.Intrinsic.Control.EndIf
+		
+	V.Global.bLoadData.Set(True)
+	V.Local.bAllFlag.Set(False)
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.Global.Security.GetUserGroups(V.Caller.User, v.Caller.CompanyCode, V.Local.sUserInGroups)
+	f.Intrinsic.String.Replace(V.Local.sUserInGroups, "*!*", "','", V.Local.sUserInGroups)
+	
+	'Displays data according to the selected dropdown option
+	F.Intrinsic.Control.If(V.Screen.FormWF!ddl_View.Text,=,"All")
+
+		'F.Intrinsic.String.Build("select distinct A.WF_ID, RTRIM(A.DESCRIPTION) DESCRIPTION, RTRIM(A.NOTIFY) NOTIFY, A.LINE, A.LINE_ID, A.USER_GROUP, A.SIGNOFF_USER_GRP, A.START_DATE, A.DUE_DATE, A.SIGNEDOFF_DATE, isnull(A.PERC_COMPLETION,0) as PERC_COMPLETION, A.COMPLETION_DATE, RTRIM(B.TITLE) TITLE from ATG_WF_LINES A left join ATG_WF_HEADER B on A.WF_ID = B.WF_ID where (A.USER_GROUP = '{0}' or A.SIGNOFF_USER_GRP = '{0}' or A.USER_GROUP in ('{1}') or A.SIGNOFF_USER_GRP in ('{1}'))", V.Caller.User, V.Local.sUserInGroups, V.Local.sSQL)
+		
+		'Modified this since customer realized they would like to able to see all WFs tasks regardless of the user they are assigned to.
+		v.Local.sSQL.Set("select distinct A.WF_ID, RTRIM(A.DESCRIPTION) DESCRIPTION, RTRIM(A.NOTIFY) NOTIFY, A.LINE, A.LINE_ID, A.USER_GROUP, A.SIGNOFF_USER_GRP, A.START_DATE, A.DUE_DATE, A.SIGNEDOFF_DATE, isnull(A.PERC_COMPLETION,0) as PERC_COMPLETION, A.COMPLETION_DATE, RTRIM(B.TITLE) TITLE from ATG_WF_LINES A left join ATG_WF_HEADER B on A.WF_ID = B.WF_ID")
+		V.Local.bAllFlag.Set(True)
+		
+	F.Intrinsic.Control.ElseIf(V.Screen.FormWF!ddl_View.Text,=,"Assigned")
+		
+		'Only displays the records assigned to this user
+		F.Intrinsic.String.Build("select A.WF_ID, RTRIM(A.DESCRIPTION) DESCRIPTION, RTRIM(A.NOTIFY) NOTIFY, A.LINE, A.LINE_ID, A.USER_GROUP, A.SIGNOFF_USER_GRP, A.START_DATE, A.DUE_DATE, A.SIGNEDOFF_DATE, isnull(A.PERC_COMPLETION,0) as PERC_COMPLETION, A.COMPLETION_DATE, RTRIM(B.TITLE) TITLE from ATG_WF_LINES A left join ATG_WF_HEADER B on A.WF_ID = B.WF_ID where (A.USER_GROUP = '{0}'or A.USER_GROUP in ('{1}'))", V.Caller.User, V.Local.sUserInGroups, V.Local.sSQL)
+		
+	F.Intrinsic.Control.ElseIf(V.Screen.FormWF!ddl_View.Text,=,"Sign Off")
+	
+		'Only displays the records the user is assigned to signoff
+		F.Intrinsic.String.Build("select A.WF_ID, RTRIM(A.DESCRIPTION) DESCRIPTION, RTRIM(A.NOTIFY) NOTIFY, A.LINE, A.LINE_ID, A.USER_GROUP, A.SIGNOFF_USER_GRP, A.START_DATE, A.DUE_DATE, A.SIGNEDOFF_DATE, isnull(A.PERC_COMPLETION,0) as PERC_COMPLETION, A.COMPLETION_DATE, RTRIM(B.TITLE) TITLE from ATG_WF_LINES A left join ATG_WF_HEADER B on A.WF_ID = B.WF_ID where (A.SIGNOFF_USER_GRP = '{0}' or A.SIGNOFF_USER_GRP in ('{1}'))", V.Caller.User, V.Local.sUserInGroups, V.Local.sSQL)
+		
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.If(V.Screen.FormWF!chkLastDays.Value,=,0)
+		
+		'Shows just active records if option isn't turned on
+		F.Intrinsic.Control.If(V.Local.bAllFlag,=,True)
+			
+			F.Intrinsic.String.Build("{0} where PERC_COMPLETION <> 100 order by A.WF_ID, A.LINE", V.Local.sSQL, V.Local.sSQL)
+		
+		F.Intrinsic.Control.Else
+		
+			F.Intrinsic.String.Build("{0} and PERC_COMPLETION <> 100 order by A.WF_ID, A.LINE", V.Local.sSQL, V.Local.sSQL)
+			
+		F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Else
+	
+		'Shows active records and history records from last 30 days if option is turned on
+		F.Intrinsic.Date.DateAdd("D", -30, V.Ambient.Date, V.Local.dPrevDate)
+		F.Intrinsic.Control.If(V.Local.bAllFlag,=,True)
+			
+			F.Intrinsic.String.Build("{0} where A.START_DATE between '{1}' and '{2}' order by A.WF_ID, A.LINE", V.Local.sSQL, V.Local.dPrevDate.PervasiveDate, V.Ambient.Date.PervasiveDate, V.Local.sSQL)
+		
+		F.Intrinsic.Control.Else
+		
+			F.Intrinsic.String.Build("{0} and A.START_DATE between '{1}' and '{2}' order by A.WF_ID, A.LINE", V.Local.sSQL, V.Local.dPrevDate.PervasiveDate, V.Ambient.Date.PervasiveDate, V.Local.sSQL)
+			
+		F.Intrinsic.Control.EndIf
+		
+	F.Intrinsic.Control.EndIf
+	
+	F.Data.DataTable.CreateFromSQL("dtWF", "Con", V.Local.sSQL, True)
+	F.ODBC.Connection!Con.Close
+	
+	'Adding columns
+	F.Data.DataTable.AddColumn("dtWF", "SELECT", "Boolean", False)
+	f.Data.DataTable.AddExpressionColumn("dtWF", "SO", "String", "SUBSTRING(TITLE, 5, 7)")
+	F.Data.DataTable.AddColumn("dtWF", "LINE_DEPENDENCIES", "String")
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.LoadData.End
+Program.Sub.LoadGrid.Start
+'Creating gridview
+F.Intrinsic.Control.Try
+	
+	gui.FormWF.gsgcWF.AddGridviewFromDatatable("gvWF", "dtWF")
+	
+	''General Gridview properties
+	gui.FormWF.gsgcWF.SetGridviewProperty("gvWF", V.Enum.GridViewPropertyNames!RowAutoHeight, True)
+	gui.FormWF.gsgcWF.SetGridviewProperty("gvWF", V.Enum.GridViewPropertyNames!SuppressNothingDates, True)
+	gui.FormWF.gsgcWF.SetGridviewProperty("gvWF", V.Enum.GridViewPropertyNames!ColumnPanelRowHeight, 45)
+	gui.FormWF.gsgcWF.SetGridviewProperty("gvWF", V.Enum.GridViewPropertyNames!EnableAppearanceFocusedRow, True) 
+	gui.FormWF.gsgcWF.SetGridviewProperty("gvWF", "OptionsViewColumnAutoWidth", False)
+	GUI.FormWF.gsgcWF.SetGridviewProperty("gvWF", V.Enum.GridViewPropertyNames!EnableAppearanceOddRow, True)
+	GUI.FormWF.gsgcWF.SetGridviewProperty("gvWF", V.Enum.GridViewPropertyNames!ShowAutoFilterRow, True) 
+	
+	''Column properties
+	'Invisible columns 
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SIGNOFF_USER_GRP", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SIGNEDOFF_DATE", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTIFY", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "LINE_DEPENDENCIES", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "LINE_ID", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_TEMPLATE", V.Enum.ColumnPropertyNames!Visible, False)
+	
+	'Formatting captions
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_ID", V.Enum.ColumnPropertyNames!Caption, "WF ID")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DESCRIPTION", V.Enum.ColumnPropertyNames!Caption, "Task Description")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "START_DATE", V.Enum.ColumnPropertyNames!Caption, "Start Date")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DUE_DATE", V.Enum.ColumnPropertyNames!Caption, "Due Date")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!Caption, "% Complete")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!Caption, "Completed Date")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "TITLE", V.Enum.ColumnPropertyNames!Caption, "WF Title")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SELECT", V.Enum.ColumnPropertyNames!Caption, "Select")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SO", V.Enum.ColumnPropertyNames!Caption, "Sales Order")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER", V.Enum.ColumnPropertyNames!Caption, "Customer No")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!Caption, "Customer Name")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "USER_GROUP", V.Enum.ColumnPropertyNames!Caption, "Assigned User")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NAME_USER", V.Enum.ColumnPropertyNames!Caption, "User Name")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "LINE", V.Enum.ColumnPropertyNames!Caption, "WF Line")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_TITLE", V.Enum.ColumnPropertyNames!Caption, "WF Template Title")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!Caption, "Notes")
+	
+	'Formatting headers
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_ID", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DESCRIPTION", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "START_DATE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DUE_DATE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "TITLE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SELECT", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SO", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "USER_GROUP", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NAME_USER", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "LINE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_TITLE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	
+	'Formatting headers allignment
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_ID", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DESCRIPTION", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "START_DATE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DUE_DATE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "TITLE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SELECT", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SO", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "USER_GROUP", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NAME_USER", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "LINE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_TITLE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	
+	'Formatting widths
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_ID", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DESCRIPTION", V.Enum.ColumnPropertyNames!MinWidth, 300)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "START_DATE", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DUE_DATE", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "TITLE", V.Enum.ColumnPropertyNames!MinWidth, 200)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SELECT", V.Enum.ColumnPropertyNames!MaxWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SO", V.Enum.ColumnPropertyNames!MinWidth, 100)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER", V.Enum.ColumnPropertyNames!MinWidth, 100)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!MinWidth, 200)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "USER_GROUP", V.Enum.ColumnPropertyNames!MinWidth, 100)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NAME_USER", V.Enum.ColumnPropertyNames!MinWidth, 150)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "LINE", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "WF_TITLE", V.Enum.ColumnPropertyNames!MinWidth, 150)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!MinWidth, 400)
+
+	'Enable EXPORT column to be checked/unchecked
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SELECT", V.Enum.ColumnPropertyNames!AllowEdit, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "SELECT", V.Enum.ColumnPropertyNames!ReadOnly, False)
+	
+	'Formatting dates
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "START_DATE", V.Enum.ColumnPropertyNames!DisplayCustomDateTime, "d")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "DUE_DATE", V.Enum.ColumnPropertyNames!DisplayCustomDateTime, "d")
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!DisplayCustomDateTime, "d")
+	
+	'Formatting NOTES column
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!AllowEdit, True)
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!ReadOnly, False)
+	GUI.FormWF.gsgcWF.SetColumnProperty("gvWF", "NOTES", V.Enum.ColumnPropertyNames!CellWordWrap, "Wrap") 
+	
+	'Extra gv properties
+	gui.FormWF.gsgcWF.SetColumnProperty("gvWF", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!HeaderWordWrap, "Wrap")
+	
+	F.Intrinsic.Control.CallSub("CheckDependency")
+
+	'Displaying gv
+	gui.FormWF.gsgcWF.MainView("gvWF")
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.LoadGrid.End
+Program.Sub.MenuClickResetColumns.Start
+'Deleting saved serializations
+
+F.Intrinsic.Control.Try
+
+	F.Global.Registry.AddValue(V.Caller.User,V.Caller.CompanyCode,"gvWF",V.Global.iARC_ID,1000,False,"Serialize",False,0,-999.0,1/1/1980,12:00:00 AM,"")
+	
+	'Prevent RefreshScreen from doing Serialize.
+	V.Global.bLoadData.Set(False)
+	F.Intrinsic.Control.CallSub(cmdRefresh_Click)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickResetColumns.End
+Program.Sub.MenuClickSA.Start
+'Select all or unselect all context menus
+
+F.Intrinsic.Control.Try
+
+	F.Intrinsic.Control.If(V.Args.ItemName,=,"SELECTALL")
+		F.Data.DataTable.SetValue("dtWF",-1,"SELECT",True)
+	F.Intrinsic.Control.ElseIf(V.Args.ItemName,=,"UNSELECTALL")
+		F.Data.DataTable.SetValue("dtWF",-1,"SELECT",False)
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickSA.End
+Program.Sub.Serialize.Start
+F.Intrinsic.Control.Try
+
+	V.Local.sSerialize.Declare(String)
+	
+	'For gvWF
+	gui.FormWF.gsgcWF.Serialize("gvWF", V.Local.sSerialize)
+	F.Global.Registry.AddValue(V.Caller.User,V.Caller.CompanyCode,"gvWF",V.Global.iARC_ID,1000,False,"Serialize",False,0,-999.0,1/1/1980,12:00:00 AM, V.Local.sSerialize)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.Serialize.End
+Program.Sub.Deserialize.Start
+F.Intrinsic.Control.Try
+
+	V.Local.sSerialize.Declare(String)
+	
+	'For gvWF
+	F.Global.Registry.ReadValue(V.Caller.User,V.Caller.CompanyCode,"gvWF",V.Global.iARC_ID,1000,6,"",V.Local.sSerialize)
+	F.Intrinsic.Control.If(V.Local.sSerialize.Trim,<>,"")
+		gui.FormWF.gsgcWF.Deserialize(V.Local.sSerialize)
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.Deserialize.End
+Program.Sub.cmdRefresh_Click.Start
+F.Intrinsic.Control.Try
+
+	F.Intrinsic.Control.If(V.Global.bLoadData)
+		F.Intrinsic.Control.CallSub(Serialize)
+	F.Intrinsic.Control.EndIf
+	
+	gui.FormWF.gsgcWF.Visible(False)
+	gui.FormWF.gsgcWF.SuspendLayout()
+		F.Intrinsic.Control.CallSub(LoadData)
+		F.Intrinsic.Control.CallSub(CallDictionaries)
+		F.Intrinsic.Control.CallSub(LoadGrid)
+		F.Intrinsic.Control.CallSub(Deserialize)
+	gui.FormWF.gsgcWF.ResumeLayout()
+	gui.FormWF.gsgcWF.Visible(True)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdRefresh_Click.End
+Program.Sub.CatchError.Start
+'To display the error
+F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}", V.Ambient.ScriptPath, V.Ambient.Newline, V.Ambient.SubroutineCalledFrom, V.Ambient.ErrorNumber, V.Ambient.ErrorDescription, V.Ambient.GABVersion, V.Global.sError) 
+F.Intrinsic.UI.Msgbox(V.Global.sError, V.Global.sARCID)
+F.Intrinsic.Control.CallSub("FormWF_UnLoad1")
+Program.Sub.CatchError.End
+Program.Sub.FormWF_UnLoad1.Start
+F.Intrinsic.Control.If(V.Global.bLoadData)
+	F.Intrinsic.Control.CallSub(Serialize)
+F.Intrinsic.Control.EndIf
+
+'Closing the connection if it is open
+f.Intrinsic.Control.If(v.ODBC.con.exists,=,"1") 	
+    f.ODBC.Connection!Con.Close
+f.Intrinsic.Control.EndIf
+
+'Closing screen
+GUI.FormWF..Visible(False)
+
+'Ending program
+F.Intrinsic.Control.End
+Program.Sub.FormWF_UnLoad1.End
+Program.Sub.CallDictionaries.Start
+F.Intrinsic.Control.Try
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	'Dictionary to get customer number
+	F.Data.Dictionary.CreateFromSQL("dictCust", "Con", "select RTRIM(ORDER_NO) ORDER_NO, RTRIM(CUSTOMER) CUSTOMER from V_ORDER_HEADER")
+	F.Data.Dictionary.SetDefaultReturn("dictCust", "")
+	F.Data.DataTable.AddColumn("dtWF", "CUSTOMER", "String")
+	F.Data.DataTable.FillFromDictionary("dtWF", "dictCust", "SO", "CUSTOMER")
+	F.Data.Dictionary.Close("dictCust")
+	
+	'Dictionary to get customer name
+	F.Data.Dictionary.CreateFromSQL("dictCustName", "Con", "select RTRIM(CUSTOMER) CUSTOMER, RTRIM(NAME_CUSTOMER) NAME_CUSTOMER from V_CUSTOMER_MASTER")
+	F.Data.Dictionary.SetDefaultReturn("dictCustName", "")
+	F.Data.DataTable.AddColumn("dtWF", "CUSTOMER_NAME", "String")
+	F.Data.DataTable.FillFromDictionary("dtWF", "dictCustName", "CUSTOMER", "CUSTOMER_NAME")
+	F.Data.Dictionary.Close("dictCustName")
+	
+	F.Data.Dictionary.CreateFromSQL("dictTemplateID", "Con", "select RTRIM(WF_ID) WF_ID, TEMPLATE from ATG_WF_HEADER;")
+	F.Data.Dictionary.SetDefaultReturn("dictTemplateID", "")
+	F.Data.DataTable.AddColumn("dtWF", "WF_TEMPLATE", "String")
+	F.Data.DataTable.FillFromDictionary("dtWF", "dictTemplateID", "WF_ID", "WF_TEMPLATE")
+	F.Data.Dictionary.Close("dictTemplateID")
+	
+	F.Data.Dictionary.CreateFromSQL("dictWFTitle", "Con", "select RTRIM(WFT_ID) WFT_ID, RTRIM(TITLE) TITLE from ATG_WFT_HEADER;")
+	F.Data.Dictionary.SetDefaultReturn("dictWFTitle", "")
+	F.Data.DataTable.AddColumn("dtWF", "WF_TITLE", "String")
+	F.Data.DataTable.FillFromDictionary("dtWF", "dictWFTitle", "WF_TEMPLATE", "WF_TITLE")
+	F.Data.Dictionary.Close("dictWFTitle")
+	
+	'Dictionaries to get Notes
+	F.Data.Dictionary.CreateFromSQL("dictWFNotes", "Con", "select LINE_ID, RTRIM(NOTES) NOTES from GCG_6784_NOTES;")
+	F.Data.Dictionary.SetDefaultReturn("dictWFNotes", "")
+	F.Data.DataTable.AddColumn("dtWF", "NOTES", "String")
+	F.Data.DataTable.FillFromDictionary("dtWF", "dictWFNotes", "LINE_ID", "NOTES")
+	F.Data.Dictionary.Close("dictWFNotes")
+	F.ODBC.Connection!Con.Close
+	
+	'Dictionary to get 
+	F.ODBC.Connection!Con.OpenCommonConnection
+	F.Data.Dictionary.CreateFromSQL("dictUser", "Con", "select GS_USER, RTRIM(FIRST_NAME) + ' ' + RTRIM(LAST_NAME) from USER_INFORMATION")
+	F.Data.Dictionary.SetDefaultReturn("dictUser", "GSS Group")
+	F.Data.DataTable.AddColumn("dtWF", "NAME_USER", "String")
+	F.Data.DataTable.FillFromDictionary("dtWF", "dictUser", "USER_GROUP", "NAME_USER")
+	F.Data.Dictionary.Close("dictUser")
+	F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.CallDictionaries.End
+Program.Sub.ddl_View_DropDownClosed.Start
+'Refreshing grid after user selects a different option from the dropdown list
+F.Intrinsic.Control.Try
+
+	F.Intrinsic.Control.CallSub("cmdRefresh_Click")
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.ddl_View_DropDownClosed.End
+Program.Sub.SetContextMenus.Start
+'Creates the context menus and its items
+
+F.Intrinsic.Control.Try
+	
+	GUI.FormWF..ContextMenuCreate("ctxgsgcWF")
+	GUI.FormWF.gsgcWF.ContextMenuAttach("ctxgsgcWF")
+	GUI.FormWF..ContextMenuAddItem("ctxgsgcWF","ResetColumns",0,"Reset Columns")
+	GUI.FormWF..ContextMenuAddItem("ctxgsgcWF","SelectAll",0,"Select All")
+	GUI.FormWF..ContextMenuAddItem("ctxgsgcWF","UnselectAll",0,"Unselect All")
+	GUI.FormWF..ContextMenuAddItem("ctxgsgcWF","Export",0,"Export")
+	
+	GUI.FormWF..ContextMenuSetItemEventHandler("ctxgsgcWF","ResetColumns","MenuClickResetColumns")
+	GUI.FormWF..ContextMenuSetItemEventHandler("ctxgsgcWF","SelectAll","MenuClickSA")
+	GUI.FormWF..ContextMenuSetItemEventHandler("ctxgsgcWF","UnselectAll","MenuClickSA")
+	GUI.FormWF..ContextMenuSetItemEventHandler("ctxgsgcWF","Export","MenuClickExport")
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.SetContextMenus.End
+Program.Sub.MenuClickExport.Start
+'Exports dashboard to excel file or csv if Excel isn't installed
+
+V.Local.sFileExport.Declare(String)
+V.Local.bExcel.Declare(String)
+	
+'Folder browser to allow the user to select the export path
+F.Intrinsic.UI.FolderBrowser("Select the path to export the gridview", "", V.Local.sFileExport)
+F.Intrinsic.Control.If(V.Local.sFileExport.IsNotCancel)
+
+	F.Automation.MSExcel.CheckPresence(V.Local.bExcel)
+	F.Intrinsic.Control.If(V.Local.bExcel, =, True) 
+		
+		F.Intrinsic.String.Build("{0}\Custom WF Queue.xlsx", V.Local.sFileExport, V.Local.sFileExport)
+		GUI.FormWF.gsgcWF.Export(V.Local.sFileExport,"xlsx")
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		
+	F.Intrinsic.Control.Else
+		
+		F.Intrinsic.String.Build("{0}\Custom WF Queue.csv", V.Local.sFileExport, V.Local.sFileExport)
+		GUI.FormWF.gsgcWF.Export(V.Local.sFileExport,"csv")
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		
+	F.Intrinsic.Control.EndIf
+	
+F.Intrinsic.Control.Else
+
+	F.Intrinsic.UI.Msgbox("An export path must be selected to export dashboard.", V.Global.sARCID)
+	
+F.Intrinsic.Control.EndIf
+Program.Sub.MenuClickExport.End
+Program.Sub.CheckDependency.Start
+'This subroutine changes a row back record if it has a dependency and dependent task hasn't been completed.
+
+F.Intrinsic.Control.Try
+
+	V.Local.iCounter.Declare(Long)
+	v.Local.sSQL.Declare(String)
+	v.Local.sLinesDependent.Declare(String)
+	V.Local.iCounter2.Declare(Long)
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataTable.dtWF.RowCount--, 1)
+		
+		V.Local.sLinesDependent.Redim(0,0)
+		F.Intrinsic.String.Build("select DEPENDENCY from ATG_WF_DEPENDENCY where ASSOC_ID = '{0}' order by DEPENDENCY;", V.DataTable.dtWF(V.Local.iCounter).LINE_ID!FieldValTrim, V.Local.sSQL)
+		F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sLinesDependent)
+		
+		F.Intrinsic.Control.If(V.Ambient.ExecuteAndReturnEOF, =, False)
+			
+			F.Data.DataTable.SetValue("dtWF", V.Local.iCounter, "LINE_DEPENDENCIES", V.Local.sLinesDependent)
+			f.Intrinsic.String.Split(V.Local.sLinesDependent, "#$#", V.Local.sLinesDependent)
+			F.Intrinsic.Control.For(V.Local.iCounter2, 0, V.Local.sLinesDependent.UBound, 1)
+				
+				F.Intrinsic.String.Build("select isnull(PERC_COMPLETION, 0) from ATG_WF_LINES where WF_ID = '{0}' and LINE = '{1}';", V.DataTable.dtWF(V.Local.iCounter).WF_ID!FieldValTrim, V.Local.sLinesDependent(V.Local.iCounter2), V.Local.sSQL)
+				F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sSQL)
+
+				F.Intrinsic.Control.If(V.Local.sSQL, <>, "100")
+				
+					'One of its dependencies is not closed
+					gui.FormWF.gsgcWF.SetRowAppearance("gvWF",v.Local.iCounter,"BackColor","Pink")
+					f.Intrinsic.Control.ExitFor(V.Local.iCounter2)
+					
+				F.Intrinsic.Control.EndIf
+				
+			F.Intrinsic.Control.Next(V.Local.iCounter2)
+			
+		F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Next(V.Local.iCounter)
+	F.ODBC.Connection!Con.Close
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.CheckDependency.End
+Program.Sub.CheckTable.Start
+'This subroutine verifies if tables exists in DB, creates it if it doesn't
+F.Intrinsic.Control.Try
+
+	V.Local.bExists.Declare(Boolean)
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.ODBC.Connection!Con.TableExists("GCG_6784_NOTES", V.Local.bExists)
+		F.Intrinsic.Control.If(V.Local.bExists, =, False)
+			F.ODBC.Connection!Con.Execute("CREATE TABLE GCG_6784_NOTES (LINE_ID INTEGER, USER_ID CHAR(10), NOTES CHAR(400));")
+		F.Intrinsic.Control.EndIf
+	F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.CheckTable.End
+Program.Sub.gsgcWF_CellValueChanged.Start
+'This subroutine updates Notes for a WF Line
+
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iLineID.Declare(Long)
+	
+	F.Intrinsic.Control.SelectCase(V.Args.Column)
+	
+		F.Intrinsic.Control.Case("NOTES")
+			
+			GUI.FormWF.gsgcWF.GetCellValueByColumnName("gvWF", "LINE_ID", V.Args.RowIndex, V.Local.iLineID)
+			
+			F.ODBC.Connection!Con.OpenCompanyConnection
+			F.Intrinsic.String.Build("select * from GCG_6784_NOTES where LINE_ID = '{0}';", V.Local.iLineID, V.Local.sSQL)
+			F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sSQL)
+			
+			F.Intrinsic.Control.If(V.Ambient.ExecuteAndReturnEOF, =, True)
+				F.Intrinsic.String.Build("insert into GCG_6784_NOTES (LINE_ID, USER_ID, NOTES) values('{0}','{1}','{2}');", V.Local.iLineID, v.Caller.User, v.Args.Value, V.Local.sSQL)
+			f.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("update GCG_6784_NOTES set NOTES = '{2}', USER_ID = '{1}' where LINE_ID = '{0}';", V.Local.iLineID, v.Caller.User, v.Args.Value, V.Local.sSQL)
+			F.Intrinsic.Control.EndIf
+			
+			F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+			F.ODBC.Connection!Con.Close
+			
+	F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.Catch
+	
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.gsgcWF_CellValueChanged.End
+
+'Complete WF Step' screen
+Program.Sub.cmdCompleteStep_Click.Start
+F.Intrinsic.Control.Try
+	
+	V.Local.iCounter.Declare(Long)
+	V.Local.sUserInGroups.Declare(String)
+	V.Local.sUserPartOf.Declare(String)
+	
+	F.Intrinsic.Control.If(V.DataView.dtWF!dvWF.Exists)
+		F.Data.DataView.Close("dtWF", "dvWF")
+	F.Intrinsic.Control.EndIf
+		
+	F.Data.DataView.Create("dtWF", "dvWF", 22,"[SELECT] = 'True'","")	
+	
+	F.Intrinsic.Control.If(V.DataView.dtWF!dvWF.RowCount, =, 0)
+		F.Intrinsic.UI.Msgbox("No WF task was selected, Complete Step screen won't be displayed.", V.Global.sARCID)
+	F.Intrinsic.Control.Else
+	
+		'Disabling button
+		GUI.FormWF.cmdCompleteStep.Enabled(False)
+		GUI.FormWF_Step.cmdSave.Enabled(True)
+		GUI.FormWF_Step..Show
+	
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdCompleteStep_Click.End
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	
+	'Disabling button
+	GUI.FormWF_Step.cmdSave.Enabled(False)
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	
+	'If user completes a line but doesn't signoff.
+	F.Intrinsic.Control.If(V.Screen.FormWF_Step!chkCompleteLine.Value,=,1, "AND", V.Screen.FormWF_Step!chkSignOff.Value,=,0)
+	
+		F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataView.dtWF!dvWF.RowCount--, 1) 
+			
+			F.Intrinsic.String.Build("update ATG_WF_LINES set PERC_COMPLETION = '99', COMPLETION_DATE = '{0}', COMPLETED_BY = '{1}' where WF_ID = '{2}' and LINE = '{3}';", V.Ambient.Now.PervasiveDate, V.Caller.User, V.DataView.dtWF!dvWF(V.Local.iCounter).WF_ID!FieldValTrim, V.DataView.dtWF!dvWF(V.Local.iCounter).LINE!FieldValTrim, V.Local.sSQL)
+			F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+				
+		F.Intrinsic.Control.Next(V.Local.iCounter)
+	
+	'If user wants to update the percentage completed without signing off
+	F.Intrinsic.Control.ElseIf(V.Screen.FormWF_Step!chkCompleteLine.Value,=,0, "AND", V.Screen.FormWF_Step!txt_Percentage.Text, <>, "")
+		
+		F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataView.dtWF!dvWF.RowCount--, 1) 
+		
+			F.Intrinsic.String.Build("update ATG_WF_LINES set PERC_COMPLETION = '{0}' where WF_ID = '{1}' and LINE = '{2}';", V.Screen.FormWF_Step!txt_Percentage.Text, V.DataView.dtWF!dvWF(V.Local.iCounter).WF_ID!FieldValTrim, V.DataView.dtWF!dvWF(V.Local.iCounter).LINE!FieldValTrim, V.Local.sSQL)
+			F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+			
+		F.Intrinsic.Control.Next(V.Local.iCounter)
+	
+	'If user signs off task
+	F.Intrinsic.Control.ElseIf(V.Screen.FormWF_Step!chkSignOff.Value,=,1)
+	
+		F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataView.dtWF!dvWF.RowCount--, 1) 
+		
+			F.Intrinsic.String.Build("update ATG_WF_LINES set PERC_COMPLETION = '100', COMPLETION_DATE = '{0}', COMPLETED_BY = '{1}' where WF_ID = '{2}' and LINE = '{3}';", V.Ambient.Now.PervasiveDate, V.Caller.User, V.DataView.dtWF!dvWF(V.Local.iCounter).WF_ID!FieldValTrim, V.DataView.dtWF!dvWF(V.Local.iCounter).LINE!FieldValTrim, V.Local.sSQL)
+			F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+			
+			F.Intrinsic.Control.CallSub("SendEmail", "WFT_ID", V.DataView.dtWF!dvWF(V.Local.iCounter).WF_TEMPLATE!FieldValTrim, "LINE", V.DataView.dtWF!dvWF(V.Local.iCounter).LINE!FieldValTrim, "WF_ID", V.DataView.dtWF!dvWF(V.Local.iCounter).WF_ID!FieldValTrim, "WF_TITLE", V.DataView.dtWF!dvWF(V.Local.iCounter).WF_TITLE!FieldValTrim)
+			
+		F.Intrinsic.Control.Next(V.Local.iCounter)
+	
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Connection!Con.Close
+	
+	'Closing screen and refreshing main gv
+	F.Intrinsic.Control.CallSub("FormWF_Step_UnLoad")
+	F.Intrinsic.Control.CallSub("cmdRefresh_Click")
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.cmdSave_Click.End
+Program.Sub.FormWF_Step_UnLoad.Start
+F.Intrinsic.Control.Try
+	
+	F.Data.DataView.SetValue("dtWF", "dvWF", -1,"SELECT", "False")
+	GUI.FormWF_Step.txt_Percentage.Text("")
+	GUI.FormWF_Step.chkCompleteLine.Value("0")
+	GUI.FormWF_Step.chkSignOff.Value("0")
+	GUI.FormWF_Step..Visible(False)
+	GUI.FormWF.cmdCompleteStep.Enabled(True)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.FormWF_Step_UnLoad.End
+Program.Sub.SendEmail.Start
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	V.Local.sAssigned.Declare(String)
+	V.Local.sSubject.Declare(String)
+	V.Local.sBody.Declare(String)
+	V.Local.sLinesDependent.Declare(String)
+	V.Local.sAssoc.Declare(String)
+	V.Local.sLine.Declare(String)
+	V.Local.iUserID.Declare(Long)
+	V.Local.sSender.Declare(String)
+	V.Local.sSenderEmail.Declare(String)
+	V.Local.sSenderName.Declare(String)
+	V.Local.iCounter2.Declare(Long)
+	V.Local.sRecipients.Declare(String)
+	V.Local.sRecipientEmail.Declare(String)
+	V.Local.sRecipientName.Declare(String)
+	V.Local.sGroupUsers.Declare(String)
+	V.Local.sTemp.Declare(String)
+	
+	'V.args.WFID and LINE that was selected.
+	F.Intrinsic.String.Build("select A.ASSOC_ID from ATG_WFT_DEPENDENCY A left join ATG_WFT_LINES B on A.DEPENDENCY = B.LINE_ID where B.WFT_ID = '{0}' and B.LINE = '{1}';", V.Args.WFT_ID, V.Args.LINE, V.Local.sSQL)
+	F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sAssoc)
+	F.Intrinsic.String.Build("select A.LINE from ATG_WFT_LINES A left join ATG_WFT_DEPENDENCY B on A.LINE_ID = B.DEPENDENCY where B.ASSOC_ID = '{0}';", V.Local.sAssoc, V.Local.sSQL)
+	F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sLinesDependent)
+	
+	f.Intrinsic.String.Split(V.Local.sLinesDependent, "#$#", V.Local.sLinesDependent)
+
+	F.Intrinsic.Control.For(V.Local.iCounter, 0, V.Local.sLinesDependent.UBound, 1)
+	
+		F.Intrinsic.String.Build("select isnull(PERC_COMPLETION, 0) from ATG_WF_LINES where WF_ID = '{0}' and LINE = '{1}';", V.DataTable.dtWF(V.Local.iCounter).WF_ID!FieldValTrim, V.Local.sLinesDependent(V.Local.iCounter), V.Local.sSQL)
+		F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sSQL)
+	
+		F.Intrinsic.Control.If(V.Local.sSQL, <>, "100")
+			
+			'hay alguna no completa, exit sub
+			f.Intrinsic.Control.ExitSub
+			
+		F.Intrinsic.Control.EndIf
+		
+	F.Intrinsic.Control.Next(V.Local.iCounter)
+	
+	F.Intrinsic.Control.If(V.DataTable.dtWFEmail.Exists)
+		F.Data.DataTable.Close("dtWFEmail")
+	F.Intrinsic.Control.EndIf
+	
+	'si llega aqui es que todas las lineas dependientes estan cerradas
+	
+	'poner el numero de linea que depende
+	F.Intrinsic.String.Build("select distinct A.LINE from ATG_WFT_LINES A left join ATG_WFT_DEPENDENCY B on A.LINE_ID = B.ASSOC_ID where B.ASSOC_ID = '{0}';", V.Local.sAssoc, V.Local.sSQL)
+	F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sLine)
+	F.Intrinsic.String.Build("select * from ATG_WF_LINES where WF_ID = '{0}' and LINE = '{1}';", V.Args.WF_ID, V.Local.sLine, V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtWFEmail", "Con", V.Local.sSQL, True)
+	
+	'Getting User ID
+	F.Global.Security.GetUserID(V.Caller.User, V.Caller.CompanyCode, V.Local.iUserID)
+	
+	'Setting subject
+	f.Intrinsic.String.Build("{0}", V.Args.WF_TITLE, v.Local.sSubject)
+	
+	'''Building sender parameter
+	'Get email address of GS User
+	F.Global.Security.GetUserEmail(V.Caller.User, V.Local.sSenderEmail)
+	
+	'Alert and end script if no email found for GS User
+	F.Intrinsic.control.If(V.Local.sSenderEmail,=,"")
+		F.Intrinsic.UI.Msgbox("Error in email procedure.  The GS User does not have an email address associated with it in User Security Maintenance.")
+		F.Intrinsic.Control.CallSub("Unload")
+	F.Intrinsic.Control.EndIf
+	
+	'Getting full name of GS User
+	F.Global.Security.GetFullName(V.Caller.User, V.Caller.CompanyCode, V.Local.sSenderName)
+	
+	'Setting Sender Info for Queue Message
+	f.Intrinsic.String.Concat(V.Local.sSenderEmail,"*!*", V.Local.sSenderName, V.Local.sSender)
+	'''			
+	
+	'Building body
+	f.Intrinsic.String.Build("A new custom workflow '{0}' has been generated and you have been assigned to the following task:", V.Args.WF_TITLE, v.Local.sBody)
+	f.Intrinsic.String.Build("{0}{1}  - Workflow ID: '{2}'", v.Local.sBody, v.Ambient.NewLine, V.Args.WF_ID, v.Local.sBody)
+	F.Intrinsic.String.Build("select RTRIM(TITLE) TITLE from ATG_WF_HEADER where WF_ID = '{0}';", V.Args.WF_ID, V.Local.sSQL)
+	F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sSQL)
+	f.Intrinsic.String.Build("{0}{1}  - Workflow Title: '{2}'", v.Local.sBody, v.Ambient.NewLine, V.Local.sSQL, v.Local.sBody)
+	f.Intrinsic.String.Build("{0}{1}  - Task Description: '{2}'", v.Local.sBody, v.Ambient.NewLine, V.DataTable.dtWFEmail(0).DESCRIPTION!FieldValTrim, v.Local.sBody)
+	f.Intrinsic.String.Build("{0}{1}{1}{2}", v.Local.sBody, v.Ambient.NewLine,"Please go to Order Entry > Transactions > Custom Workflow Queue [6784] to perform further action.", v.Local.sBody)
+	f.Intrinsic.String.Build("{0}{1}{1}{2}", v.Local.sBody, v.Ambient.NewLine,"*Automatically generated email notification*", v.Local.sBody)
+
+	'''Building recipients parameter, The recipients are delimited with a @!@, while the recipient's name and recipient's email address are delimited with a *!*.
+	
+	'Setting variable to assigned user/group
+	V.Local.sAssigned.Set(V.DataTable.dtWFEmail(0).USER_GROUP!FieldValTrim)
+	
+	'Validating if it is an specific user or a group.
+	F.Intrinsic.Control.If(V.DataTable.dtWFEmail(0).USR_GRP_FLAG!FieldVal, =, False)
+	
+		'Retrieving all group members
+		f.Global.Security.GetGroupMembers(V.Local.sAssigned, V.Caller.CompanyCode, V.Local.sGroupUsers)
+		F.Intrinsic.String.Split(V.Local.sGroupUsers, "*!*", V.Local.sGroupUsers)
+		
+		F.Intrinsic.Control.For(V.Local.iCounter2, 0, V.Local.sGroupUsers.UBound, 1)
+
+			'Retrieving user's email and name
+			F.Global.Security.GetUserEmail(V.Local.sGroupUsers(V.Local.iCounter2), V.Local.sRecipientEmail)
+			F.Global.Security.GetFullName(V.Local.sGroupUsers(V.Local.iCounter2), V.Caller.CompanyCode, V.Local.sRecipientName)
+			
+			'Building recipients parameter
+			F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sRecipientName, V.Local.sRecipientEmail, V.Local.sTemp)
+			V.Local.sRecipients.Append(V.Local.sTemp)
+			
+			f.Intrinsic.Control.If(V.Local.iCounter2, <>, V.Local.sGroupUsers.UBound)
+				V.Local.sRecipients.Append("@!@")
+			f.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.Next(V.Local.iCounter2)
+	
+	F.Intrinsic.Control.Else
+		
+		'Retrieving single user's email and name
+		F.Global.Security.GetUserEmail(V.Local.sAssigned, V.Local.sRecipientEmail)
+		F.Global.Security.GetFullName(V.Local.sAssigned, V.Caller.CompanyCode, V.Local.sRecipientName)
+		
+		'Building recipients parameter
+		F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sRecipientName, V.Local.sRecipientEmail, V.Local.sRecipients)
+		
+	F.Intrinsic.Control.EndIf
+		
+	'Queueing email which be later sent by Courier
+	F.Global.Messaging.QueueMessage(V.Caller.CompanyCode,V.Local.iUserID,"GCG_6784",V.Local.sSubject,V.Local.sSender, V.Local.sRecipients, V.Local.sBody,5,"",False,"","","","","","","", "", False, "")
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.SendEmail.End
+
+'Restart WF' screen: specific request on ARC 6784 to restart a WF.
+Program.Sub.cmdDeleteWF_Click.Start
+F.Intrinsic.Control.Try
+	
+	F.Intrinsic.Control.If(V.DataView.dtWF!dvWF.Exists)
+		F.Data.DataView.Close("dtWF", "dvWF")
+	F.Intrinsic.Control.EndIf
+	
+	F.Data.DataView.Create("dtWF", "dvWF", 22,"[SELECT] = 'True'","")	
+	
+	F.Intrinsic.Control.If(V.DataView.dtWF!dvWF.RowCount, =, 1)
+		GUI.FormWF.cmdDeleteWF.Enabled(False)
+		gui.FormDeleteWF.txtDeleteWF_ID.Text(V.DataView.dtWF!dvWF(0).WF_ID!FieldValLong)
+		GUI.FormDeleteWF..Show
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("Either no WF task or more than one were selected, please select just a task whose WF you want to restart.", V.Global.sARCID)
+		F.Data.DataView.SetValue("dtWF", "dvWF", -1,"SELECT", "False")	
+	F.Intrinsic.Control.EndIf
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdDeleteWF_Click.End
+Program.Sub.FormDeleteWF_UnLoad.Start
+F.Intrinsic.Control.Try
+
+	F.Data.DataView.SetValue("dtWF", "dvWF", -1,"SELECT", "False")
+	GUI.FormDeleteWF.txtDeleteWF_Reason.Text("")
+	GUI.FormDeleteWF..Visible(False)
+	GUI.FormWF.cmdDeleteWF.Enabled(True)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.FormDeleteWF_UnLoad.End
+Program.Sub.cmdRestartWF_Click.Start
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.sWFID.Declare(String)
+	V.Local.sReason.Declare(String)
+	V.Local.iUserID.Declare(Long)
+	V.Local.sSubject.Declare(String)
+	V.Local.sSender.Declare(String)
+	V.Local.sSenderEmail.Declare(String)
+	V.Local.sSenderName.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	V.Local.sBody.Declare(String)
+	V.Local.sRecipients.Declare(String)
+	V.Local.sAssigned.Declare(String)
+	V.Local.sGroupUsers.Declare(String)
+	V.Local.iCounter2.Declare(Long)
+	V.Local.sRecipientEmail.Declare(String)
+	V.Local.sRecipientName.Declare(String)
+	V.Local.sTemp.Declare(String)
+	
+	'Closing dt if it exists
+	F.Intrinsic.Control.If(V.DataTable.dtWFRestart.Exists)
+		F.Data.DataTable.Close("dtWFRestart")
+	F.Intrinsic.Control.EndIf
+	
+	'Delete WF with WF_ID
+	V.Local.sWFID.Set(V.Screen.FormDeleteWF!txtDeleteWF_ID.Text)
+	V.Local.sReason.Set(V.Screen.FormDeleteWF!txtDeleteWF_Reason.Text)
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.Intrinsic.String.Build("update ATG_WF_HEADER set COMPLETION_DATE = '{0}', META_0 = 'DELETED WF' where WF_ID = '{1}';", V.Ambient.Now.PervasiveDate, V.Local.sWFID, V.Local.sSQL)
+	F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+	F.Intrinsic.String.Build("update ATG_WF_LINES set PERC_COMPLETION = '100', COMPLETION_DATE = '{0}', COMPLETED_BY = 'DELETED' where WF_ID = '{1}';", V.Ambient.Now.PervasiveDate, V.Local.sWFID, V.Local.sSQL)
+	F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+	
+	'Send delete email to all groups
+	F.Intrinsic.String.Build("select distinct USER_GROUP, USR_GRP_FLAG from ATG_WF_LINES where WF_ID = '{0}';", V.Local.sWFID, V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtWFRestart", "Con", V.Local.sSQL, True)
+	
+	'Getting User ID
+	F.Global.Security.GetUserID(V.Caller.User, V.Caller.CompanyCode, V.Local.iUserID)
+	
+	'Setting subject
+	v.Local.sSubject.Set(V.DataView.dtWF!dvWF(0).WF_TITLE!FieldValTrim)
+	
+	'''Building sender parameter
+	'Get email address of GS User
+	F.Global.Security.GetUserEmail(V.Caller.User, V.Local.sSenderEmail)
+	
+	'Alert and end script if no email found for GS User
+	F.Intrinsic.control.If(V.Local.sSenderEmail,=,"")
+		F.Intrinsic.UI.Msgbox("Error in email procedure.  The GS User does not have an email address associated with it in User Security Maintenance.")
+		F.Intrinsic.Control.CallSub("Unload")
+	F.Intrinsic.Control.EndIf
+	
+	'Getting full name of GS User
+	F.Global.Security.GetFullName(V.Caller.User, V.Caller.CompanyCode, V.Local.sSenderName)
+	
+	'Setting Sender Info for Queue Message
+	f.Intrinsic.String.Concat(V.Local.sSenderEmail,"*!*", V.Local.sSenderName, V.Local.sSender)
+	'''		
+	
+	'Building body
+	f.Intrinsic.String.Build("Workflow ID '{0}'-'{1}' has been restarted due to the following reason:", V.Local.sWFID, V.DataView.dtWF!dvWF(0).TITLE!FieldValTrim, v.Local.sBody)
+	f.Intrinsic.String.Build("{0}{1}{2}", v.Local.sBody, v.Ambient.NewLine, V.Local.sReason, v.Local.sBody)
+	f.Intrinsic.String.Build("{0}{1}{1}{2}", v.Local.sBody, v.Ambient.NewLine,"*Automatically generated email notification*", v.Local.sBody)
+		
+	'Queueing email for user/group in dt
+	F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataTable.dtWFRestart.RowCount--, 1) 
+		
+		'''Building recipients parameter, The recipients are delimited with a @!@, while the recipient's name and recipient's email address are delimited with a *!*.
+		V.Local.sRecipients.Set("")
+		
+		'Setting variable to assigned user/group
+		V.Local.sAssigned.Set(V.DataTable.dtWFRestart(V.Local.iCounter).USER_GROUP!FieldValTrim)
+		
+		'Validating if it is an specific user or a group.
+		F.Intrinsic.Control.If(V.DataTable.dtWFRestart(V.Local.iCounter).USR_GRP_FLAG!FieldVal, =, False)
+		
+			'Retrieving all group members
+			f.Global.Security.GetGroupMembers(V.Local.sAssigned, V.Caller.CompanyCode, V.Local.sGroupUsers)
+			F.Intrinsic.String.Split(V.Local.sGroupUsers, "*!*", V.Local.sGroupUsers)
+			
+			F.Intrinsic.Control.For(V.Local.iCounter2, 0, V.Local.sGroupUsers.UBound, 1)
+	
+				'Retrieving user's email and name
+				F.Global.Security.GetUserEmail(V.Local.sGroupUsers(V.Local.iCounter2), V.Local.sRecipientEmail)
+				F.Global.Security.GetFullName(V.Local.sGroupUsers(V.Local.iCounter2), V.Caller.CompanyCode, V.Local.sRecipientName)
+				
+				'Building recipients parameter
+				F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sRecipientName, V.Local.sRecipientEmail, V.Local.sTemp)
+				V.Local.sRecipients.Append(V.Local.sTemp)
+				
+				f.Intrinsic.Control.If(V.Local.iCounter2, <>, V.Local.sGroupUsers.UBound)
+					V.Local.sRecipients.Append("@!@")
+				f.Intrinsic.Control.EndIf
+	
+			F.Intrinsic.Control.Next(V.Local.iCounter2)
+		
+		F.Intrinsic.Control.Else
+			
+			'Retrieving single user's email and name
+			F.Global.Security.GetUserEmail(V.Local.sAssigned, V.Local.sRecipientEmail)
+			F.Global.Security.GetFullName(V.Local.sAssigned, V.Caller.CompanyCode, V.Local.sRecipientName)
+			
+			'Building recipients parameter
+			F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sRecipientName, V.Local.sRecipientEmail, V.Local.sRecipients)
+	
+		F.Intrinsic.Control.EndIf		
+		''''
+		
+		'Queueing email which be later sent by Courier
+		F.Global.Messaging.QueueMessage(V.Caller.CompanyCode,V.Local.iUserID,"GCG_6784_R",V.Local.sSubject,V.Local.sSender, V.Local.sRecipients, V.Local.sBody,5,"",False,"","","","","","","", "", False, "")
+	
+	F.Intrinsic.Control.Next(V.Local.iCounter)
+	F.ODBC.Connection!Con.Close
+	
+	'Calling sub to unload form
+	F.Intrinsic.Control.CallSub("FormDeleteWF_UnLoad")
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdRestartWF_Click.End
+
+'View All' screen: User can see all WFs and its tasks within a date range
+Program.Sub.cmdWFAll_Click.Start
+F.Intrinsic.Control.Try
+	
+	V.Local.dPrevDate.Declare(Date)
+	
+	'Setting date pickers
+	F.Intrinsic.Date.DateAdd("D", -30, V.Ambient.Date, V.Local.dPrevDate)
+	GUI.FormWFAll.dtpStartDate.Value(V.Local.dPrevDate)
+	GUI.FormWFAll.dtpEndDate.Value(V.Ambient.Date)
+	
+	'Disabling mainview and showing FormWFAll
+	GUI.FormWF..Enabled(False)
+	GUI.FormWFAll.gsgcWFAll.Visible(False)
+	GUI.FormWFAll..Show
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdWFAll_Click.End
+Program.Sub.FormWFAll_UnLoad.Start
+F.Intrinsic.Control.Try
+
+	'Making form invisible and setting focus to mainview
+	GUI.FormWFAll..Visible(False)
+	GUI.FormWF..SetFocus
+	GUI.FormWF..Enabled(True)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.FormWFAll_UnLoad.End
+Program.Sub.cmd_RefreshAll_Click.Start
+'Calls for functions after click on Refresh button 
+
+F.Intrinsic.Control.Try
+
+	gui.FormWFAll.gsgcWFAll.Visible(False)
+	gui.FormWFAll.gsgcWFAll.SuspendLayout()
+		F.Intrinsic.Control.CallSub(LoadDataAll)
+		F.Intrinsic.Control.CallSub(CallDictionariesAll)
+		F.Intrinsic.Control.CallSub(LoadGridAll)
+	gui.FormWFAll.gsgcWFAll.ResumeLayout()
+	gui.FormWFAll.gsgcWFAll.Visible(True)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.cmd_RefreshAll_Click.End
+Program.Sub.LoadDataAll.Start
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	V.Local.dStartDate.Declare(Date)
+	V.Local.dEndDate.Declare(Date)
+	V.Local.iDays.Declare(Long)
+	
+	V.Local.dStartDate.Set(V.Screen.FormWFAll!dtpStartDate.Value)
+	V.Local.dEndDate.Set(V.Screen.FormWFAll!dtpEndDate.Value)
+	
+	F.Intrinsic.Control.If(V.DataTable.dtWFAll.Exists)
+	F.Data.DataTable.Close("dtWFAll")
+	F.Intrinsic.Control.EndIf
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.Intrinsic.String.Build("select A.WF_ID, RTRIM(A.DESCRIPTION) DESCRIPTION, RTRIM(A.NOTIFY) NOTIFY, A.LINE, A.LINE_ID, A.USER_GROUP, A.SIGNOFF_USER_GRP, A.START_DATE, A.DUE_DATE, A.SIGNEDOFF_DATE, isnull(A.PERC_COMPLETION,0) as PERC_COMPLETION, A.COMPLETION_DATE, RTRIM(B.TITLE) TITLE from ATG_WF_LINES A left join ATG_WF_HEADER B on A.WF_ID = B.WF_ID where A.START_DATE between '{0}' and '{1}' order by A.WF_ID, A.LINE", V.Local.dStartDate.PervasiveDate, V.Local.dEndDate.PervasiveDate, V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtWFAll", "Con", V.Local.sSQL, True)
+	F.ODBC.Connection!Con.Close
+	
+	'Adding columns
+	F.Data.DataTable.AddColumn("dtWFAll", "DAYS", "Long")
+	f.Data.DataTable.AddExpressionColumn("dtWFAll", "SO", "String", "SUBSTRING(TITLE, 5, 7)")
+	
+	F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataTable.dtWFAll.RowCount--, 1)
+		
+		F.Intrinsic.Control.If(V.DataTable.dtWFAll(V.Local.iCounter).COMPLETION_DATE!FieldValTrim, <>, "")
+		
+			Function.Intrinsic.Date.DateDiff("D", V.DataTable.dtWFAll(V.Local.iCounter).DUE_DATE!FieldValTrim, V.DataTable.dtWFAll(V.Local.iCounter).COMPLETION_DATE!FieldValTrim, V.Local.iDays)
+			F.Data.DataTable.SetValue("dtWFAll", V.Local.iCounter, "DAYS", V.Local.iDays)
+		
+		F.Intrinsic.Control.Else
+		
+			F.Data.DataTable.SetValue("dtWFAll", V.Local.iCounter, "DAYS", "0")
+			
+		F.Intrinsic.Control.EndIf
+		
+	F.Intrinsic.Control.Next(V.Local.iCounter)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.LoadDataAll.End
+Program.Sub.CallDictionariesAll.Start
+F.Intrinsic.Control.Try
+	
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	'Dictionary to get customer number
+	F.Data.Dictionary.CreateFromSQL("dictCust", "Con", "select RTRIM(ORDER_NO) ORDER_NO, RTRIM(CUSTOMER) CUSTOMER from V_ORDER_HEADER")
+	F.Data.Dictionary.SetDefaultReturn("dictCust", "")
+	F.Data.DataTable.AddColumn("dtWFAll", "CUSTOMER", "String")
+	F.Data.DataTable.FillFromDictionary("dtWFAll", "dictCust", "SO", "CUSTOMER")
+	F.Data.Dictionary.Close("dictCust")
+	
+	'Dictionary to get customer name
+	F.Data.Dictionary.CreateFromSQL("dictCustName", "Con", "select RTRIM(CUSTOMER) CUSTOMER, RTRIM(NAME_CUSTOMER) NAME_CUSTOMER from V_CUSTOMER_MASTER")
+	F.Data.Dictionary.SetDefaultReturn("dictCustName", "")
+	F.Data.DataTable.AddColumn("dtWFAll", "CUSTOMER_NAME", "String")
+	F.Data.DataTable.FillFromDictionary("dtWFAll", "dictCustName", "CUSTOMER", "CUSTOMER_NAME")
+	F.Data.Dictionary.Close("dictCustName")
+	
+	'Dictionaries to get Notes
+	F.Data.Dictionary.CreateFromSQL("dictWFNotes", "Con", "select LINE_ID, RTRIM(NOTES) NOTES from GCG_6784_NOTES;")
+	F.Data.Dictionary.SetDefaultReturn("dictWFNotes", "")
+	F.Data.DataTable.AddColumn("dtWFAll", "NOTES", "String")
+	F.Data.DataTable.FillFromDictionary("dtWFAll", "dictWFNotes", "LINE_ID", "NOTES")
+	F.Data.Dictionary.Close("dictWFNotes")
+	F.ODBC.Connection!Con.Close
+	
+	'Dictionary to get 
+	F.ODBC.Connection!Con.OpenCommonConnection
+	F.Data.Dictionary.CreateFromSQL("dictUser", "Con", "select GS_USER, RTRIM(FIRST_NAME) + ' ' + RTRIM(LAST_NAME) from USER_INFORMATION")
+	F.Data.Dictionary.SetDefaultReturn("dictUser", "GSS Group")
+	F.Data.DataTable.AddColumn("dtWFAll", "NAME_USER", "String")
+	F.Data.DataTable.FillFromDictionary("dtWFAll", "dictUser", "USER_GROUP", "NAME_USER")
+	F.Data.Dictionary.Close("dictUser")
+	F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.CallDictionariesAll.End
+Program.Sub.LoadGridAll.Start
+'Creating gridview
+F.Intrinsic.Control.Try
+
+	gui.FormWFAll.gsgcWFAll.AddGridviewFromDatatable("gvWFAll", "dtWFAll")
+	
+	''General Gridview properties
+	GUI.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", V.Enum.GridViewPropertyNames!EnableAppearanceOddRow, True)
+	gui.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", V.Enum.GridViewPropertyNames!RowAutoHeight, True)
+	gui.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", V.Enum.GridViewPropertyNames!SuppressNothingDates, True)
+	gui.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", V.Enum.GridViewPropertyNames!ColumnPanelRowHeight, 60)
+	gui.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", V.Enum.GridViewPropertyNames!EnableAppearanceFocusedRow, True)
+	GUI.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", V.Enum.GridViewPropertyNames!ShowAutoFilterRow, True) 
+	gui.FormWFAll.gsgcWFAll.SetGridviewProperty("gvWFAll", "OptionsViewColumnAutoWidth", False) 'It allows the user to adjust the column widths
+	
+	''Column properties
+	'Invisible columns 
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SIGNOFF_USER_GRP", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SIGNEDOFF_DATE", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTIFY", V.Enum.ColumnPropertyNames!Visible, False)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "LINE_ID", V.Enum.ColumnPropertyNames!Visible, False)
+
+	'Formatting captions
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "WF_ID", V.Enum.ColumnPropertyNames!Caption, "WF ID")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DESCRIPTION", V.Enum.ColumnPropertyNames!Caption, "Task Description")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "START_DATE", V.Enum.ColumnPropertyNames!Caption, "Start Date")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DUE_DATE", V.Enum.ColumnPropertyNames!Caption, "Due Date")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!Caption, "% Complete")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!Caption, "Completed Date")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "TITLE", V.Enum.ColumnPropertyNames!Caption, "WF Title")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SO", V.Enum.ColumnPropertyNames!Caption, "Sales Order")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER", V.Enum.ColumnPropertyNames!Caption, "Customer No")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!Caption, "Customer Name")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "USER_GROUP", V.Enum.ColumnPropertyNames!Caption, "Assigned User")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NAME_USER", V.Enum.ColumnPropertyNames!Caption, "User Name")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DAYS", V.Enum.ColumnPropertyNames!Caption, "Date Diff")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "LINE", V.Enum.ColumnPropertyNames!Caption, "Line")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTES", V.Enum.ColumnPropertyNames!Caption, "Notes")
+	
+	'Formatting headers
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "WF_ID", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DESCRIPTION", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "START_DATE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DUE_DATE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "TITLE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SO", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "USER_GROUP", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NAME_USER", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DAYS", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "LINE", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTES", V.Enum.ColumnPropertyNames!HeaderFontBold, True)
+	
+	'Formatting headers allignment
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "WF_ID", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DESCRIPTION", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "START_DATE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DUE_DATE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "TITLE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SO", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "USER_GROUP", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NAME_USER", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DAYS", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "LINE", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTES", V.Enum.ColumnPropertyNames!HeaderHAlignment, "Center")
+	
+	'Formatting widths
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "WF_ID", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DESCRIPTION", V.Enum.ColumnPropertyNames!MinWidth, 400)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "START_DATE", V.Enum.ColumnPropertyNames!MinWidth, 120)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DUE_DATE", V.Enum.ColumnPropertyNames!MinWidth, 120)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!MinWidth, 100)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!MinWidth, 120)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "TITLE", V.Enum.ColumnPropertyNames!MinWidth, 350)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SO", V.Enum.ColumnPropertyNames!MinWidth, 120)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER", V.Enum.ColumnPropertyNames!MinWidth, 100)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!MinWidth, 300)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "USER_GROUP", V.Enum.ColumnPropertyNames!MinWidth, 150)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NAME_USER", V.Enum.ColumnPropertyNames!MinWidth, 200)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DAYS", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "LINE", V.Enum.ColumnPropertyNames!MinWidth, 80)
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTES", V.Enum.ColumnPropertyNames!MinWidth, 500)
+	
+	'Setting indexes
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "WF_ID", V.Enum.ColumnPropertyNames!VisibleIndex, "1")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "TITLE", V.Enum.ColumnPropertyNames!VisibleIndex, "2")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "LINE", V.Enum.ColumnPropertyNames!VisibleIndex, "3")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DESCRIPTION", V.Enum.ColumnPropertyNames!VisibleIndex, "4")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "USER_GROUP", V.Enum.ColumnPropertyNames!VisibleIndex, "5")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NAME_USER", V.Enum.ColumnPropertyNames!VisibleIndex, "6")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "START_DATE", V.Enum.ColumnPropertyNames!VisibleIndex, "7")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DUE_DATE", V.Enum.ColumnPropertyNames!VisibleIndex, "8")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!VisibleIndex, "9")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!VisibleIndex, "10")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DAYS", V.Enum.ColumnPropertyNames!VisibleIndex, "11")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "SO", V.Enum.ColumnPropertyNames!VisibleIndex, "12")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER", V.Enum.ColumnPropertyNames!VisibleIndex, "13")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER_NAME", V.Enum.ColumnPropertyNames!VisibleIndex, "14")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTES", V.Enum.ColumnPropertyNames!VisibleIndex, "15")
+
+	'Formatting dates
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "START_DATE", V.Enum.ColumnPropertyNames!DisplayCustomDateTime, "d")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DUE_DATE", V.Enum.ColumnPropertyNames!DisplayCustomDateTime, "d")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!DisplayCustomDateTime, "d")
+	
+	'Extra gv properties
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "NOTES", V.Enum.ColumnPropertyNames!CellWordWrap, "Wrap")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "COMPLETION_DATE", V.Enum.ColumnPropertyNames!HeaderWordWrap, "Wrap")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "CUSTOMER", V.Enum.ColumnPropertyNames!HeaderWordWrap, "Wrap")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "PERC_COMPLETION", V.Enum.ColumnPropertyNames!HeaderWordWrap, "Wrap")
+	gui.FormWFAll.gsgcWFAll.SetColumnProperty("gvWFAll", "DAYS", V.Enum.ColumnPropertyNames!HeaderWordWrap, "Wrap")
+	
+	'Displaying gv
+	gui.FormWFAll.gsgcWFAll.MainView("gvWFAll")
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.LoadGridAll.End
+Program.Sub.MenuClickExportAll.Start
+'Exports dashboard to excel file or csv if Excel isn't installed
+F.Intrinsic.Control.Try
+
+	V.Local.sFileExport.Declare(String)
+	V.Local.bExcel.Declare(String)
+		
+	'Folder browser to allow the user to select the export path
+	F.Intrinsic.UI.FolderBrowser("Select the path to export the gridview", "", V.Local.sFileExport)
+	F.Intrinsic.Control.If(V.Local.sFileExport.IsNotCancel)
+	
+		F.Automation.MSExcel.CheckPresence(V.Local.bExcel)
+		F.Intrinsic.Control.If(V.Local.bExcel, =, True) 
+			
+			F.Intrinsic.String.Build("{0}\View All WFs.xlsx", V.Local.sFileExport, V.Local.sFileExport)
+			GUI.FormWFAll.gsgcWFAll.Export(V.Local.sFileExport,"xlsx")
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+			
+		F.Intrinsic.Control.Else
+			
+			F.Intrinsic.String.Build("{0}\View All WFs.csv", V.Local.sFileExport, V.Local.sFileExport)
+			GUI.FormWFAll.gsgcWFAll.Export(V.Local.sFileExport,"csv")
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+			
+		F.Intrinsic.Control.EndIf
+		
+	F.Intrinsic.Control.Else
+	
+		F.Intrinsic.UI.Msgbox("An export path must be selected to export dashboard.", V.Global.sARCID)
+		
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickExportAll.End
+Program.Sub.SetContextMenusAll.Start
+'Creates the context menus and its items
+
+F.Intrinsic.Control.Try
+	
+	GUI.FormWFAll..ContextMenuCreate("ctxgsgcWFAll")
+	GUI.FormWFAll.gsgcWFAll.ContextMenuAttach("ctxgsgcWFAll")
+	GUI.FormWFAll..ContextMenuAddItem("ctxgsgcWFAll","Export",0,"Export")
+	GUI.FormWFAll..ContextMenuSetItemEventHandler("ctxgsgcWFAll","Export","MenuClickExportAll")
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.SetContextMenusAll.End
+
+Program.Sub.Comments.Start
+${$5$}$20.1.8328.25015$}$1
+${$6$}$apadilla$}$20221123171426126$}$Lag9STqBJOmNXSbd5+msRcBWPGz0aFqSmhrQDKqKcnUuElJRq19DVCyFMjC1wzdgh6M3x4pfMTD9PuFTFl9hbw==
+Program.Sub.Comments.End
