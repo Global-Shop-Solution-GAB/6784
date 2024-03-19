@@ -1,0 +1,493 @@
+﻿Program.Sub.Preflight.Start
+V.Global.sError.Declare(String)
+V.Global.sWFID.Declare(String)
+V.Global.bPartFlag.Declare(Boolean)
+V.Global.sWFName.Declare(String, "Sales Order WF")
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Author: Arturo Almaguer
+'Date: 6/10/22
+'Customer: Northstar Metal Products, quote number 13509
+'This program places a new SO on credit hold and triggers a custom workflow.
+'This script is launched off 11902 SO Header Post Exit hook.
+'For workflows, you need to manually set up their WF template in BI - Admin - WF template
+
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+
+F.Intrinsic.Control.Try
+
+	V.Local.sOrderNo.Declare(String)
+	V.Local.sSQL.Declare(String)
+	V.Local.sReturn.Declare(String)
+	V.Local.bUserInGroup.Declare(String)
+			
+	F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+	
+		F.Intrinsic.Control.Case(11560)
+		'SO Header populate hook
+			
+			'Calling sub if SO is a new one. 
+			F.Intrinsic.Control.If(V.Caller.Switches, =, "N")
+				
+				F.Intrinsic.Control.CallSub("UnhideControl")
+				
+				'If user is in group, then they would have the ability to turn the option on or off.
+				F.Global.Security.IsInGroup(V.Caller.User, "TESTWF", V.Caller.CompanyCode, V.Local.bUserInGroup)
+				F.Intrinsic.Control.If(V.Local.bUserInGroup, =, True)
+					V.Passed.GAB-CHK-1.Set("Y")
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+				f.Intrinsic.Control.Else
+					V.Passed.GAB-CHK-1.Set("Y")
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 1)
+				F.Intrinsic.Control.EndIf
+
+			F.Intrinsic.Control.EndIf
+			
+		F.Intrinsic.Control.Case(11565)
+		'SO Header order selected hook
+		
+			'Continue with process if SO is an existing one. 
+			F.Intrinsic.Control.If(V.Caller.Switches, =, "O")
+			
+				F.Intrinsic.Control.CallSub("UnhideControl")
+			
+				'If user is in group, then they would have the ability to turn the option on or off.
+				F.Global.Security.IsInGroup(V.Caller.User, "TESTWF", V.Caller.CompanyCode, V.Local.bUserInGroup)
+				F.Intrinsic.Control.If(V.Local.bUserInGroup, =, True)
+					V.Passed.GAB-CHK-1.Set("N")
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+				f.Intrinsic.Control.Else
+					V.Passed.GAB-CHK-1.Set("N")
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 1)
+				F.Intrinsic.Control.EndIf
+		
+			F.Intrinsic.Control.EndIf	
+
+		F.Intrinsic.Control.Case(11869)
+		'SO Header pre save hook
+			
+			'Getting SO number
+			F.Intrinsic.String.LPad(V.Passed.000003,"0",7,V.Local.sOrderNo)
+		
+			'If it is a new SO
+			F.Intrinsic.Control.If(V.Caller.Switches, =, "N", "AND", V.Passed.GAB-CHK-1, =, "Y") 
+					
+				'Triggering WF
+				F.Intrinsic.Control.CallSub("TriggerWF", "OrderNo", V.Local.sOrderNo)
+				F.Intrinsic.Control.CallSub("NewPartTask", "OrderNo", V.Local.sOrderNo)
+				F.Intrinsic.Control.CallSub("QualityTask", "OrderNo", V.Local.sOrderNo)
+				F.Intrinsic.Control.CallSub("WFDueDates")
+				F.Intrinsic.Control.CallSub("SendEmail")
+				F.Intrinsic.Control.CallSub("Unload")
+						
+			F.Intrinsic.Control.ElseIf(V.Caller.Switches, =, "O", "AND", V.Passed.GAB-CHK-1, =, "Y")
+			
+				'Triggering WF
+				F.Intrinsic.Control.CallSub("TriggerWF", "OrderNo", V.Local.sOrderNo)
+				F.Intrinsic.Control.CallSub("NewPartTask", "OrderNo", V.Local.sOrderNo)
+				F.Intrinsic.Control.CallSub("QualityTask", "OrderNo", V.Local.sOrderNo)
+				F.Intrinsic.Control.CallSub("WFDueDates")
+				F.Intrinsic.Control.CallSub("SendEmail")
+				F.Intrinsic.Control.CallSub("Unload")
+				
+			F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.Case(11872)
+		'SO Header post save hook
+			
+			'Calling sub if SO is an existing one and the option is checked
+			F.Intrinsic.Control.If(V.Caller.Switches, =, "O", "AND", V.Passed.GAB-CHK-1, =, "Y")
+				
+				F.Intrinsic.String.LPad(V.Passed.000003,"0",7,V.Local.sOrderNo)
+				
+				'Placing SO in 'Shipping Hold'
+				F.Intrinsic.String.Build("update ORDER_HEADER set SHP_HLD_FLAG = '4' where ORDER_NO = '{0}' and RECORD_NO = '  A';", V.Local.sOrderNo, V.Local.sSQL)
+				F.ODBC.Connection!Con.OpenCompanyConnection
+				F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+				F.ODBC.Connection!Con.Close
+			
+			F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.Case(11902)
+		'SO Header post exit hook
+		
+			F.Intrinsic.Control.If(V.Caller.Switches, =, "N", "AND", V.Passed.GAB-CHK-1, =, "Y")
+			
+				F.Intrinsic.String.LPad(V.Passed.000003,"0",7,V.Local.sOrderNo)
+				
+				'Placing SO in 'Shipping Hold'
+				F.Intrinsic.String.Build("update ORDER_HEADER set SHP_HLD_FLAG = '4' where ORDER_NO = '{0}' and RECORD_NO = '  A';", V.Local.sOrderNo, V.Local.sSQL)
+				F.ODBC.Connection!Con.OpenCompanyConnection
+				F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+				F.ODBC.Connection!Con.Close				
+
+			F.Intrinsic.Control.EndIf
+			
+	F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+
+Program.Sub.Main.End
+
+Program.Sub.TriggerWF.Start
+'This subroutine creates a worflow from its set up template
+
+F.Intrinsic.Control.Try
+
+	V.Local.dDueDate.Declare(Date)
+	V.Local.iWF.Declare(Long)
+	V.Local.iTemplateID.Declare(Long)
+	V.Local.sTitle.Declare(String)
+	
+	'Set start and end dates and the title
+	F.Intrinsic.Date.DateAddWorkdays(V.Ambient.Date, 4, "62", V.Local.dDueDate)
+
+	'Getting WF ID
+	F.Global.WorkFlow.GetTemplateIDFromTitle(V.Global.sWFName, V.Local.iTemplateID)
+	
+	'Ending program if no WF ID was found
+	F.Intrinsic.Control.If(V.Local.iTemplateID,=,-1)
+	   F.Intrinsic.UI.Msgbox("Workflow template doesn't exist")
+	   F.Intrinsic.Control.CallSub("Unload")
+	F.Intrinsic.Control.EndIf
+	
+	'Getting part linked to the SO
+	F.Intrinsic.Control.CallSub("PartValidation", "OrderNo", V.Args.OrderNo.Trim)
+	'V.Args.Part
+	
+	'Creating new WF
+	F.Intrinsic.String.Build("SO: {0}, Part: {1}", V.Args.OrderNo.Trim, V.Args.Part.RTrim, V.Local.sTitle)
+	'F.Global.WorkFlow.CreateFromTemplate(ID As Long, Title As String, StartDate As Date, DueDate As Date, User As String, Status As Long, iRet as long)
+	F.Global.WorkFlow.CreateFromTemplate(V.Local.iTemplateID, V.Local.sTitle, V.Ambient.Date.PervasiveDate, V.Local.dDueDate.PervasiveDate, V.Caller.User, 0, V.Local.iWF)
+	V.Global.sWFID.Set(V.Local.iWF)
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.TriggerWF.End
+
+Program.Sub.CatchError.Start
+'To display the error
+F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}", V.Ambient.ScriptPath, V.Ambient.Newline, V.Ambient.SubroutineCalledFrom, V.Ambient.ErrorNumber, V.Ambient.ErrorDescription, V.Ambient.GABVersion, V.Global.sError) 
+F.Intrinsic.UI.Msgbox(V.Global.sError, "ARC 6784")
+F.Intrinsic.Control.CallSub("Unload")
+Program.Sub.CatchError.End
+
+Program.Sub.Unload.Start
+'Closes the connection if it is open
+f.Intrinsic.Control.If(v.ODBC.con.exists,=,"1") 	
+    f.ODBC.Connection!Con.Close
+f.Intrinsic.Control.EndIf
+
+'Ending program
+F.Intrinsic.Control.End
+Program.Sub.Unload.End
+
+Program.Sub.WFDueDates.Start
+'This subroutine updates each WF line due date
+
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	V.Local.dDueDate.Declare(Date)
+	V.Local.dNewDueDate.Declare(Date)
+	V.Local.iDays.Declare(Long)
+
+	'Creating dt to update due dates in DB. Records with PRIORITY = 1 already have their correct due date.
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.Intrinsic.String.Build("select * from ATG_WF_LINES where WF_ID = '{0}' and PRIORITY <> '1' and isnull(PERC_COMPLETION, 0) <> '100' order by LINE;", V.Global.sWFID, V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtWFDueDates", "Con", V.Local.sSQL, True)
+	
+	'Looping through dt to manually update line's due date
+	F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataTable.dtWFDueDates.RowCount--, 1)
+		
+		V.Local.dDueDate.Set(V.DataTable.dtWFDueDates(V.Local.iCounter).DUE_DATE!FieldVal)
+		F.Intrinsic.Math.Add(V.Local.iCounter, 1, V.Local.iDays)
+		F.Intrinsic.Date.DateAddWorkdays(V.Local.dDueDate, V.Local.iDays, "62", V.Local.dNewDueDate)
+		
+		'Updating due date
+		F.Intrinsic.String.Build("update ATG_WF_LINES set DUE_DATE = '{0}' where WF_ID = '{1}' and LINE_ID = '{2}';", V.Local.dNewDueDate.PervasiveDate, V.Global.sWFID, V.DataTable.dtWFDueDates(V.Local.iCounter).LINE_ID!FieldValTrim, V.Local.sSQL)
+		F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+		
+	F.Intrinsic.Control.Next(V.Local.iCounter)
+	F.ODBC.Connection!Con.Close
+	
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.WFDueDates.End
+
+Program.Sub.QualityTask.Start
+'This subroutine marks 'Quality Notification of PPAP/CofC Requirement/FAI' task as completed since neither of those docs is required.
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.sText.Declare(String)
+	V.Local.bPPAP.Declare(Boolean)
+	V.Local.bCofC.Declare(Boolean)
+	V.Local.bFAI.Declare(Boolean)
+	
+	'Getting the SO comments
+	F.Intrinsic.String.Build("select RTRIM(TEXT) TEXT from V_ORDER_HF_TEXT where ORDER_NUMBER = '{0}';", V.Args.OrderNo, V.Local.sSQL)
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL,V.Local.sText)
+	
+	F.Intrinsic.Control.If(V.Ambient.ExecuteAndReturnEOF, =, False)
+		
+		'If the comment set up has either of these key words, then exit sub.
+		F.Intrinsic.String.IsInString(V.Local.sText, "PPAP", True, V.Local.bPPAP)
+		F.Intrinsic.String.IsInString(V.Local.sText, "CofC", True, V.Local.bCofC)
+		F.Intrinsic.String.IsInString(V.Local.sText, "FAI", True, V.Local.bFAI)
+	
+		F.Intrinsic.Control.If(V.Local.bPPAP, =, True, "OR", V.Local.bCofC, =, True, V.Local.bFAI, =, True)
+			F.ODBC.Connection!Con.Close
+			f.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.EndIf
+	
+	'Updating record to mark it as completed.
+	F.Intrinsic.String.Build("update ATG_WF_LINES set PERC_COMPLETION = '100', COMPLETION_DATE = '{0}', COMPLETED_BY = 'NA' where WF_ID = '{1}' and LINE = '4';", V.Ambient.Now.PervasiveDate, V.Global.sWFID, V.Local.sSQL)
+	F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+	F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.QualityTask.End
+
+Program.Sub.SendEmail.Start
+'This subroutine sends emails to the assigned users for each one of the first tasks.
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.iCounter.Declare(Long)
+	V.Local.sAssigned.Declare(String)
+	V.Local.sSubject.Declare(String)
+	V.Local.sBody.Declare(String)
+	V.Local.iUserID.Declare(Long)
+	V.Local.sSender.Declare(String)
+	V.Local.sSenderEmail.Declare(String)
+	V.Local.sSenderName.Declare(String)
+	V.Local.iCounter2.Declare(Long)
+	V.Local.sRecipients.Declare(String)
+	V.Local.sRecipientEmail.Declare(String)
+	V.Local.sRecipientName.Declare(String)
+	V.Local.sGroupUsers.Declare(String)
+	V.Local.sTemp.Declare(String)
+	
+	'Getting all lines for corresponding WF that were set to notify the user
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.Intrinsic.String.Build("select * from ATG_WF_LINES where WF_ID = '{0}' and NOTIFY = '1' and PRIORITY = '1' and isnull(PERC_COMPLETION, 0) <> '100' order by LINE asc;", V.Global.sWFID, V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtWFLines", "Con", V.Local.sSQL, True)
+	
+	'Getting User ID
+	F.Global.Security.GetUserID(V.Caller.User, V.Caller.CompanyCode, V.Local.iUserID)
+	
+	'Setting subject
+	f.Intrinsic.String.Build("{0}", V.Global.sWFName, v.Local.sSubject)
+	
+	'''Building sender parameter
+	'Get email address of GS User
+	F.Global.Security.GetUserEmail(V.Caller.User, V.Local.sSenderEmail)
+	
+	'Alert and end script if no email found for GS User
+	F.Intrinsic.control.If(V.Local.sSenderEmail,=,"")
+		F.Intrinsic.UI.Msgbox("Error in email procedure.  The GS User does not have an email address associated with it in User Security Maintenance.")
+		F.Intrinsic.Control.CallSub("Unload")
+	F.Intrinsic.Control.EndIf
+	
+	'Getting full name of GS User
+	F.Global.Security.GetFullName(V.Caller.User, V.Caller.CompanyCode, V.Local.sSenderName)
+	
+	'Setting Sender Info for Queue Message
+	f.Intrinsic.String.Concat(V.Local.sSenderEmail,"*!*", V.Local.sSenderName, V.Local.sSender)
+	'''		
+	
+	'Queueing email for each WF task in dt
+	F.Intrinsic.Control.For(V.Local.iCounter, 0, V.DataTable.dtWFLines.RowCount--, 1) 
+		
+		'Building body
+		f.Intrinsic.String.Build("A new workflow '{0}' has been generated and you have been assigned to the following task:", V.Global.sWFName, v.Local.sBody)
+		f.Intrinsic.String.Build("{0}{1}  - Workflow ID: '{2}'", v.Local.sBody, v.Ambient.NewLine, V.Global.sWFID, v.Local.sBody)
+		F.Intrinsic.String.Build("select RTRIM(TITLE) TITLE from ATG_WF_HEADER where WF_ID = '{0}';", V.Global.sWFID, V.Local.sSQL)
+		F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL, V.Local.sSQL)
+		f.Intrinsic.String.Build("{0}{1}  - Workflow Title: '{2}'", v.Local.sBody, v.Ambient.NewLine, V.Local.sSQL, v.Local.sBody)
+		f.Intrinsic.String.Build("{0}{1}  - Task Description: '{2}'", v.Local.sBody, v.Ambient.NewLine, V.DataTable.dtWFLines(V.Local.iCounter).DESCRIPTION!FieldValTrim, v.Local.sBody)
+		f.Intrinsic.String.Build("{0}{1}{1}{2}", v.Local.sBody, v.Ambient.NewLine,"Please go to Order Entry > Transactions > Custom Workflow Queue [6784] to perform further action.", v.Local.sBody)
+		f.Intrinsic.String.Build("{0}{1}{1}{2}", v.Local.sBody, v.Ambient.NewLine,"*Automatically generated email notification*", v.Local.sBody)
+		
+		'''Building recipients parameter, The recipients are delimited with a @!@, while the recipient's name and recipient's email address are delimited with a *!*.
+		V.Local.sRecipients.Set("")
+		
+		'Setting variable to assigned user/group
+		V.Local.sAssigned.Set(V.DataTable.dtWFLines(V.Local.iCounter).USER_GROUP!FieldValTrim)
+		
+		'Validating if it is an specific user or a group.
+		F.Intrinsic.Control.If(V.DataTable.dtWFLines(V.Local.iCounter).USR_GRP_FLAG!FieldVal, =, False)
+		
+			'Retrieving all group members
+			f.Global.Security.GetGroupMembers(V.Local.sAssigned, V.Caller.CompanyCode, V.Local.sGroupUsers)
+			F.Intrinsic.String.Split(V.Local.sGroupUsers, "*!*", V.Local.sGroupUsers)
+			
+			F.Intrinsic.Control.For(V.Local.iCounter2, 0, V.Local.sGroupUsers.UBound, 1)
+	
+				'Retrieving user's email and name
+				F.Global.Security.GetUserEmail(V.Local.sGroupUsers(V.Local.iCounter2), V.Local.sRecipientEmail)
+				F.Global.Security.GetFullName(V.Local.sGroupUsers(V.Local.iCounter2), V.Caller.CompanyCode, V.Local.sRecipientName)
+				
+				'Building recipients parameter
+				F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sRecipientName, V.Local.sRecipientEmail, V.Local.sTemp)
+				V.Local.sRecipients.Append(V.Local.sTemp)
+				
+				f.Intrinsic.Control.If(V.Local.iCounter2, <>, V.Local.sGroupUsers.UBound)
+					V.Local.sRecipients.Append("@!@")
+				f.Intrinsic.Control.EndIf
+	
+			F.Intrinsic.Control.Next(V.Local.iCounter2)
+		
+		F.Intrinsic.Control.Else
+			
+			'Retrieving single user's email and name
+			F.Global.Security.GetUserEmail(V.Local.sAssigned, V.Local.sRecipientEmail)
+			F.Global.Security.GetFullName(V.Local.sAssigned, V.Caller.CompanyCode, V.Local.sRecipientName)
+			
+			'Building recipients parameter
+			F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sRecipientName, V.Local.sRecipientEmail, V.Local.sRecipients)
+	
+		F.Intrinsic.Control.EndIf		
+		''''
+		
+		'Queueing email which be later sent by Courier
+		F.Global.Messaging.QueueMessage(V.Caller.CompanyCode,V.Local.iUserID,"GCG_6784",V.Local.sSubject,V.Local.sSender, V.Local.sRecipients, V.Local.sBody,5,"",False,"","","","","","","", "", False, "")
+	
+	F.Intrinsic.Control.Next(V.Local.iCounter)
+	F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.SendEmail.End
+
+Program.Sub.PartValidation.Start
+'This subroutine validates if part exists in inventory.
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.sPart.Declare(String)
+	V.Local.sPart2.Declare(String)
+
+	'Getting all parts linked to the SO
+	F.Intrinsic.String.Build("select distinct RTRIM(PART) PART from V_ORDER_LINES where ORDER_NO = '{0}';", V.Args.OrderNo, V.Local.sSQL)
+	F.ODBC.Connection!Con.OpenCompanyConnection
+	F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL,V.Local.sPart)
+	
+	F.Intrinsic.Control.If(V.Ambient.ExecuteAndReturnEOF, =, False)
+		
+		'Sppliting returned variable
+		f.Intrinsic.String.Split(V.Local.sPart, "#$#", V.Local.sPart)
+		
+		F.Intrinsic.Control.If(V.Local.sPart.UBound, =, 0)
+			
+			'This means it is just one part as expected. Validating if it exists in inventory.
+			F.Intrinsic.String.Build("select PART from V_INVENTORY_MSTR where PART = '{0}';", V.Local.sPart, V.Local.sSQL)
+			F.ODBC.Connection!Con.ExecuteAndReturn(V.Local.sSQL,V.Local.sPart2)
+			
+			F.Intrinsic.Control.If(V.Ambient.ExecuteAndReturnEOF, =, False)
+				'Setting global variable to be used to in NewPartTask sub
+				V.Global.bPartFlag.Set(True)
+			F.Intrinsic.Control.EndIf
+		
+		F.Intrinsic.Control.Else
+			
+			'Displaying error message since there is more than one part linked to this order.
+			f.Intrinsic.UI.Msgbox("There is more than one part in this order. Workflow won't be triggered.", "ERROR")
+			F.Intrinsic.Control.CallSub("Unload")
+			
+		F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Connection!Con.Close
+	
+	F.Intrinsic.Variable.AddRV("Part",V.Local.sPart)
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.PartValidation.End
+
+Program.Sub.NewPartTask.Start
+'This subroutine marks '1st time engineer or rev change' task as completed since part exists in inventory.
+F.Intrinsic.Control.Try
+
+	V.Local.sSQL.Declare(String)
+	V.Local.sText.Declare(String)
+	V.Local.bPPAP.Declare(Boolean)
+	V.Local.bCofC.Declare(Boolean)
+	
+	'If global variables = True, it means part exist in inventory. Thus this task will be marked as completed since part is not a new one or new rev.
+	F.Intrinsic.Control.If(V.Global.bPartFlag, =, True)
+				
+		'Updating record to mark it as completed.
+		F.ODBC.Connection!Con.OpenCompanyConnection
+		F.Intrinsic.String.Build("update ATG_WF_LINES set PERC_COMPLETION = '100', COMPLETION_DATE = '{0}', COMPLETED_BY = 'NA' where WF_ID = '{1}' and LINE = '3';", V.Ambient.Now.PervasiveDate, V.Global.sWFID, V.Local.sSQL)
+		F.ODBC.Connection!Con.Execute(V.Local.sSQL)
+		F.ODBC.Connection!Con.Close
+	
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.NewPartTask.End
+
+Program.Sub.UnhideControl.Start
+'This subroutine unhide and format labels and a checkbox in the SO Header screen
+
+F.Intrinsic.Control.Try
+	
+	'Unhiding controls
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "HIDE", 0) 'True is 1, False 0
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "HIDE", 0)
+	
+	'Setting up checkbox's message
+	V.Passed.GAB-LBL-1.Set("Trigger WF") 
+	
+	'Setting up the position for each control
+	'PT is vertical position, PL is horizontal position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-1", "PT", 550)
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-1", "PL", 600)
+	
+	F.Intrinsic.Variable.SetProperty("GAB-CHK-1", "PT", 550) 
+	F.Intrinsic.Variable.SetProperty("GAB-CHK-1", "PL", 575)
+
+F.Intrinsic.Control.Catch
+	
+	F.Intrinsic.Control.CallSub(CatchError)
+	
+F.Intrinsic.Control.EndTry
+Program.Sub.UnhideControl.End
+
+Program.Sub.Comments.Start
+${$5$}$20.1.8223.27623$}$1
+${$6$}$apadilla$}$20221004163142398$}$Lag9STqBJOmNXSbd5+msRcBWPGz0aFqSmhrQDKqKcnWKfCNnIQj5T8CQKq628uSogXTFpjoXxYi3fvRpU9vEuQ==
+Program.Sub.Comments.End
